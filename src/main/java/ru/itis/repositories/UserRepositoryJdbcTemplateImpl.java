@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import ru.itis.models.Role;
 import ru.itis.models.User;
 
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
     //language=SQL
-    private static final String SQL_SAVE_NEW_USER = "insert into user_info(first_name, last_name, email, login, password, confirm_code) values (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_SAVE_NEW_USER = "insert into user_info(first_name, last_name, email, login, password, confirm_code, role) values (?, ?, ?, ?, ?, ?, ?)";
 
     //language=SQL
     private static final String SQL_DELETE_USER = "delete from user_info where id = ?";
@@ -33,7 +34,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
 
     //language=SQL
     private static final String SQL_UPDATE_USER = "update user_info set first_name = ?, last_name = ?, password = ?," +
-            " login = ?, email = ?, is_confirmed = ?, confirm_code = ? where id = ?";
+            " login = ?, email = ?, is_confirmed = ?, confirm_code = ?, role = ? where id = ?";
 
     //language=SQL
     private static final String SQL_FIND_USER_BY_LOGIN = "select * from user_info where login = ?";
@@ -50,6 +51,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
                 .email(row.getString("email"))
                 .confirmed(row.getBoolean("is_confirmed"))
                 .confirmCode(row.getString("confirm_code"))
+                .role(Role.valueOf(row.getString("role")))
                 .build();
     };
 
@@ -69,6 +71,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
             statement.setString(4, entity.getLogin());
             statement.setString(5, entity.getPassword());
             statement.setString(6, entity.getConfirmCode());
+            statement.setString(7, entity.getRole().toString());
             return statement;
         }, keyHolder);
         entity.setId((Long) keyHolder.getKey());
@@ -82,7 +85,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
     @Override
     public void update(User user) {
         jdbcTemplate.update(SQL_UPDATE_USER, user.getFirstName(), user.getLastName(), user.getPassword(),
-                user.getLogin(), user.getEmail(), user.getConfirmed(), user.getConfirmCode(), user.getId());
+                user.getLogin(), user.getEmail(), user.getConfirmed(), user.getConfirmCode(), user.getRole().toString(), user.getId());
     }
 
     @Override

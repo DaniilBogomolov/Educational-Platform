@@ -18,4 +18,5 @@ public class User {
     private String password;
     private Boolean confirmed;
     private String confirmCode;
+    private Role role;
 }

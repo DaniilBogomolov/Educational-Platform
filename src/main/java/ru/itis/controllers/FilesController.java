@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ public class FilesController {
     }
 
 
+
     @GetMapping("/{fileName:.+}")
     public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
         Resource file = fileService.loadFileAsResource(fileName);
@@ -36,7 +38,7 @@ public class FilesController {
                 .contentType(fileType)
                 .body(file);
     }
-
+    
     @GetMapping
     public ModelAndView getFiles(@CookieValue(name = "AuthCookie", required = false) String userCookie) {
         ModelAndView modelAndView = new ModelAndView();

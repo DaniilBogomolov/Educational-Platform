@@ -7,4 +7,5 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="ru.itis"/>
     <aop:aspectj-autoproxy/>
+
 </beans>
