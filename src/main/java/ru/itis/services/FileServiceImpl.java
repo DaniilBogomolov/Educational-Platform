@@ -3,7 +3,6 @@ package ru.itis.services;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import ru.itis.repositories.UserCookieRepository;
 import ru.itis.repositories.UserRepository;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

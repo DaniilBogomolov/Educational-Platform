@@ -8,7 +8,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ru.itis.models.Cookie;
-import sun.java2d.loops.GeneralRenderer;
 
 import java.sql.PreparedStatement;
 import java.util.List;

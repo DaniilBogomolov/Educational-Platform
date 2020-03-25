@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.itis.services.SignInService;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
