@@ -8,24 +8,20 @@
     <title>Document</title>
 </head>
 <body>
-<#if userCookie??>
 <form action="/files" method="post" enctype="multipart/form-data">
     <input type="file" name="file">
+    <input hidden="hidden" name="token" value="${_csrf.token}">
     <input type="submit" value="Upload">
 </form>
 <hr>
 <#if files??>
-<#list files>
-    <ul>
-        <#items as file>
-            <li><a href="${file.url}">${file.originalFileName}</a> </li>
-        </#items>
-    </ul>
-</#list>
-</#if>
-    <#else>
-    Sorry, but to upload and get your uploaded files you should be logged in!<br>
-    <a href="/signIn">Sign In</a>
+    <#list files>
+        <ul>
+            <#items as file>
+                <li><a href="${file.url}">${file.originalFileName}</a></li>
+            </#items>
+        </ul>
+    </#list>
 </#if>
 </body>
 </html>

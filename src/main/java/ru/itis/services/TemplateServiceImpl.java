@@ -16,7 +16,6 @@ public class TemplateServiceImpl implements TemplateService {
 
 
     public Template fromPath(String path) {
-        //TODO: change templateLoader
         Template template;
         try {
             template = configuration.getTemplate(path);

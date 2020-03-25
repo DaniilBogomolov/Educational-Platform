@@ -18,6 +18,7 @@
     <input type="email" name="email" placeholder="email">
     <input type="text" name="login" placeholder="login">
     <input type="password" name="password" placeholder="password">
+    <input hidden="hidden" name="token" value="${_csrf.token}">
     <button type="submit">Register</button>
 </form>
 </body>

@@ -11,9 +11,13 @@ public interface FileService {
 
     FileInfo saveFile(MultipartFile multipartFile, String cookieValue);
 
+    FileInfo saveFile(MultipartFile multipartFile, Long userID);
+
     List<FileInfo> findFilesByUserCookie(String cookieValue);
 
     Resource loadFileAsResource(String filename);
 
     MediaType getFileType(String fileName);
+
+    List<FileInfo> findFilesByUserID(Long id);
 }
