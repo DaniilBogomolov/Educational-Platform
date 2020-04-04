@@ -1,4 +1,4 @@
-package ru.itis.services;
+package ru.itis.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -8,6 +8,7 @@ import ru.itis.models.Cookie;
 import ru.itis.models.User;
 import ru.itis.repositories.UserCookieRepository;
 import ru.itis.repositories.UserRepository;
+import ru.itis.services.SignInService;
 
 import java.util.Optional;
 import java.util.UUID;

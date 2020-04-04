@@ -1,4 +1,4 @@
-package ru.itis.repositories;
+package ru.itis.repositories.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ru.itis.models.Role;
 import ru.itis.models.User;
+import ru.itis.repositories.UserRepository;
 
 import java.sql.PreparedStatement;
 import java.util.List;

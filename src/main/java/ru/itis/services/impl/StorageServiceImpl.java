@@ -1,9 +1,10 @@
-package ru.itis.services;
+package ru.itis.services.impl;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.itis.services.StorageService;
 
 import java.io.File;
 import java.nio.file.Files;

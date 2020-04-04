@@ -1,4 +1,4 @@
-package ru.itis.services;
+package ru.itis.services.impl;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import ru.itis.models.User;
 import ru.itis.repositories.FileRepository;
 import ru.itis.repositories.UserCookieRepository;
 import ru.itis.repositories.UserRepository;
+import ru.itis.services.FileService;
+import ru.itis.services.StorageService;
 
 import java.io.File;
 import java.util.List;

@@ -1,22 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="/resources/css/sign_in_styles.css"/>
 </head>
 <body>
-<h1>Sign In</h1>
-<#if error??>
-    <h2 style="color: red">${error}</h2>
-</#if>
+<h1>Войти</h1>
 <form action="/signIn" method="post">
-    <input type="text" name="login" placeholder="login"><br>
-    <input type="password" name="password" placeholder="password"><br>
-    <input hidden="hidden" name="token" value="${_csrf.token}">
-    <button type="submit">Sign In</button>
+    <input type="text"
+           name="login"
+           placeholder="login" required>
+    <br>
+
+    <input type="password"
+           name="password"
+           placeholder="password" required>
+    <br>
+
+    <input hidden="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}">
+
+    <button type="submit">Войти</button>
 </form>
 </body>
 </html>

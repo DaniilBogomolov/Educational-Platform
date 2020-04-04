@@ -1,4 +1,4 @@
-package ru.itis.services;
+package ru.itis.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -8,6 +8,8 @@ import ru.itis.dto.SignUpDto;
 import ru.itis.models.Mail;
 import ru.itis.models.User;
 import ru.itis.repositories.UserRepository;
+import ru.itis.services.EmailService;
+import ru.itis.services.SignUpService;
 
 import java.util.HashMap;
 import java.util.Map;

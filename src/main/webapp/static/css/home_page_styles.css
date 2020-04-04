@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    align-items: center;
+    background-color: black;
+}
+
+.right-elements {
+    margin-left: auto;
+}
+
+
+a {
+    margin-right: 1.5em;
+    color: white;
+    text-decoration: white;
+}
+
+.signUp {
+    margin: 1.5em;
+}
+
+.profile-image {
+    margin-left: auto;
+    background-image: url("resources/img/anonymous.png");
+}
+
+.profile {
+    margin-left: auto;
+}
+
+.files {
+    align-self: flex-start;
+    margin-left: 1.5em;
+}

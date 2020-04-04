@@ -49,6 +49,7 @@ public class ApplicationConfig {
         freeMarkerViewResolver.setCache(true);
         freeMarkerViewResolver.setPrefix("");
         freeMarkerViewResolver.setSuffix(".ftl");
+        freeMarkerViewResolver.setContentType("text/html; charset=utf-8");
         return freeMarkerViewResolver;
     }
 

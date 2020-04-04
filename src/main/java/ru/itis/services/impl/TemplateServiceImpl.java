@@ -1,9 +1,10 @@
-package ru.itis.services;
+package ru.itis.services.impl;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.itis.services.TemplateService;
 
 import java.io.IOException;
 

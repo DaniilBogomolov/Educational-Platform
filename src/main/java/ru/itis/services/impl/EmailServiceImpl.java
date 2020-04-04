@@ -1,4 +1,4 @@
-package ru.itis.services;
+package ru.itis.services.impl;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import ru.itis.models.Mail;
+import ru.itis.services.EmailService;
+import ru.itis.services.TemplateService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
