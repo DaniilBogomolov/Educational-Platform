@@ -1,11 +1,14 @@
 package ru.itis.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.SignUpDto;
 import ru.itis.models.Mail;
+import ru.itis.models.Role;
 import ru.itis.models.User;
 import ru.itis.repositories.UserRepository;
 import ru.itis.services.EmailService;
@@ -20,7 +23,11 @@ import java.util.concurrent.ExecutorService;
 public class SignUpServiceImpl implements SignUpService {
 
     @Autowired
+    @Qualifier("userRepositoryJpaImpl")
     private UserRepository userRepository;
+
+    @Value("${photo.link}")
+    private String defaultPhotoLink;
 
     @Autowired
     private EmailService emailService;
@@ -42,6 +49,8 @@ public class SignUpServiceImpl implements SignUpService {
                 .password(passwordEncoder.encode(signUpDto.getPassword()))
                 .confirmCode(identifier)
                 .login(signUpDto.getLogin())
+                .role(Role.USER)
+                .profilePhotoLink(defaultPhotoLink)
                 .build();
         try {
             userRepository.save(user);

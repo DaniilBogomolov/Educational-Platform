@@ -22,18 +22,16 @@
         }
     </script>
 </head>
-<#if profile_image??>
-<#else>
-    <#assign profile_image = "/resources/img/anonymous.png">
-</#if>
 <body>
 <div class="navbar-container">
     <a class="files" href="/files">Мои файлы</a>
     <div class="profile-links">
         <div class="profile-image-small">
-            <img src = "${profile_image}" class="profile-image">
+<#--            <a href="/profile"><img src="${profile_image}" class="profile-image-in-a"></a>-->
+                        <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
         </div>
-        <a class="profile">Имя</a>
+<#--        <a class="profile">Name</a>-->
+                <a class="profile">${user.firstName}</a>
     </div>
 </div>
 
@@ -41,7 +39,9 @@
 <div class="big-profile-image">
     <form action="/profile?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
         <input type="file" name="file" class="input-file" accept="image/*">
-        <img src = "${profile_image}" class="profile-image">
+
+<#--        <img src="${profile_image}" class="profile-image">-->
+        <img src="${user.profilePhotoLink}" class="profile-image">
         <button type="submit" class="submit-new-profile-photo">
         </button>
     </form>

@@ -2,6 +2,7 @@ package ru.itis.services.impl;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -30,6 +31,7 @@ public class FileServiceImpl implements FileService {
     private UserCookieRepository userCookieRepository;
 
     @Autowired
+    @Qualifier("userRepositoryJpaImpl")
     private UserRepository userRepository;
 
     @Autowired

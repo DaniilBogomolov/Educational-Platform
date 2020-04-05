@@ -1,6 +1,7 @@
 package ru.itis.repositories.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,6 +36,7 @@ public class UserCookieRepositoryImpl implements UserCookieRepository {
     private static final String SQL_FIND_COOKIE_BY_VALUE = "select * from user_cookie where value = ?";
 
     @Autowired
+    @Qualifier("userRepositoryJdbcTemplateImpl")
     private UserRepository userRepository;
 
     @Autowired

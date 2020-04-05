@@ -1,6 +1,7 @@
 package ru.itis.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class SignInServiceImpl implements SignInService {
 
     @Autowired
+    @Qualifier("userRepositoryJpaImpl")
     private UserRepository userRepository;
 
     @Autowired

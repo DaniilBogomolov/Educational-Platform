@@ -43,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/signUp").anonymous()
-                .antMatchers("/files").authenticated()
-                .antMatchers("/home", "/confirm/**", "/profile").permitAll();
+                .antMatchers("/files", "/profile").authenticated()
+                .antMatchers("/home", "/confirm/**").permitAll();
     }
 
     @Autowired
