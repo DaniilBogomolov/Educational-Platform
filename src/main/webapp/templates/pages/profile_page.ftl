@@ -19,6 +19,15 @@
                 $("button[class='submit-new-profile-photo']").click();
             });
 
+            $("a[class='new-confirm-code']").click(function () {
+                $.ajax({
+                    url: "/confirm",
+                    type: "POST",
+                    success: function (status) {
+                        alert(status);
+                    }
+                })
+            })
         }
     </script>
 </head>
@@ -27,24 +36,38 @@
     <a class="files" href="/files">Мои файлы</a>
     <div class="profile-links">
         <div class="profile-image-small">
-<#--            <a href="/profile"><img src="${profile_image}" class="profile-image-in-a"></a>-->
-                        <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
+            <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
         </div>
-<#--        <a class="profile">Name</a>-->
-                <a class="profile">${user.firstName}</a>
+        <a class="profile">${user.firstName}</a>
     </div>
 </div>
 
+<div class="content">
+    <div class="big-profile-image">
+        <form action="/profile?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" class="input-file" accept="image/*">
+            <figure>
+                <img src="${user.profilePhotoLink}" class="profile-image">
+                <figcaption>${user.role}</figcaption>
+            </figure>
+            <button type="submit" class="submit-new-profile-photo">
+            </button>
+        </form>
+    </div>
 
-<div class="big-profile-image">
-    <form action="/profile?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" class="input-file" accept="image/*">
-
-<#--        <img src="${profile_image}" class="profile-image">-->
-        <img src="${user.profilePhotoLink}" class="profile-image">
-        <button type="submit" class="submit-new-profile-photo">
-        </button>
-    </form>
+    <div class="profile-info">
+        <#if user.role == "USER">
+            <h3>Для получения статуса студента перейдите по ссылке подтверждения.
+                <br> Мы отправили ее вам на Вашу электронную почту</h3>
+            <h6>Не получили сообщение? Проверьте спам или <br>
+                <form action="/confirm" method="post">
+                    <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                    <input class="new-confirm-code" type="submit" value="получите новый код подтверждения"/>
+                </form>
+            </h6>
+        </#if>
+        <a style="color: black" class="" href="#">Получить статус преподавателя</a>
+    </div>
 </div>
 </body>
 

@@ -50,6 +50,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .confirmCode(identifier)
                 .login(signUpDto.getLogin())
                 .role(Role.USER)
+                .confirmed(false)
                 .profilePhotoLink(defaultPhotoLink)
                 .build();
         try {

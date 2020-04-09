@@ -11,11 +11,13 @@
 
 <body>
 <div class="navbar-container">
-    <#if curUser??>
-        <div class="left-elements">
-            <a class="files" href="/files">Мои файлы</a>
-            <a class="profile-image" href="/profile">Фотка на профиль</a>
-            <a class="profile">Имя</a>
+    <#if user??>
+        <a class="files" href="/files">Мои файлы</a>
+        <div class="profile-links">
+            <div class="profile-image-small">
+                <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
+            </div>
+            <a class="profile">${user.firstName}</a>
         </div>
     <#else>
         <div class="right-elements">

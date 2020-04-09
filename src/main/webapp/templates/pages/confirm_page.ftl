@@ -12,6 +12,7 @@
     <h1>${error}</h1>
 <#else>
     <h1>Confirmed</h1>
+    <a href="/profile">Перейти на страницу профиля</a>
 </#if>
 </body>
 </html>

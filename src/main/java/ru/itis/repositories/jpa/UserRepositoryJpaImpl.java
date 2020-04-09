@@ -5,6 +5,7 @@ import ru.itis.models.User;
 import ru.itis.repositories.UserRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,18 +29,26 @@ public class UserRepositoryJpaImpl implements UserRepository {
 
     @Override
     public Optional<User> findUserByConfirmationCode(String code) {
-        User user = entityManager.createQuery(HQL_FIND_USER_BY_CONFIRMATION_CODE, User.class)
-                .setParameter("confirm", code)
-                .getSingleResult();
-        return Optional.ofNullable(user);
+        try {
+            User user = entityManager.createQuery(HQL_FIND_USER_BY_CONFIRMATION_CODE, User.class)
+                    .setParameter("confirm", code)
+                    .getSingleResult();
+            return Optional.ofNullable(user);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<User> findUserByLogin(String login) {
-        User user = entityManager.createQuery(HQL_FIND_USER_BY_LOGIN, User.class)
-                .setParameter("login", login)
-                .getSingleResult();
-        return Optional.ofNullable(user);
+        try {
+            User user = entityManager.createQuery(HQL_FIND_USER_BY_LOGIN, User.class)
+                    .setParameter("login", login)
+                    .getSingleResult();
+            return Optional.ofNullable(user);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
