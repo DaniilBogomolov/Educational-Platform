@@ -65,8 +65,18 @@
                     <input class="new-confirm-code" type="submit" value="получите новый код подтверждения"/>
                 </form>
             </h6>
+            <#elseif user.role == "STUDENT">
+                <form action="/confirm/confirmTeacher" method="post">
+                    <input type="submit"
+                           style="color: black"
+                           class="teacher-status"
+                           value="Получить статус преподавателя"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                </form>
+            <#elseif user.role == "TEACHER">
+            <a style="color: black;" href="#">Создать комнату</a>
         </#if>
-        <a style="color: black" class="" href="#">Получить статус преподавателя</a>
+
     </div>
 </div>
 </body>

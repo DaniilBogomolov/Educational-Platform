@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.models.Mail;
+import ru.itis.models.Role;
 import ru.itis.models.User;
 //import ru.itis.security.http.details.UserDetailsImpl;
 import ru.itis.security.http.details.UserDetailsImpl;
 import ru.itis.services.ConfirmService;
 import ru.itis.services.EmailService;
+import ru.itis.services.UserService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,9 @@ public class ConfirmController {
 
     @Autowired
     private ExecutorService executorService;
+
+    @Autowired
+    private UserService userService;
 
     @Value("${error.wrongIdentifierError}")
     private String wrongIdentifierError;
@@ -58,6 +63,14 @@ public class ConfirmController {
                     .build();
             executorService.submit(() -> emailService.sendEmail(confirmMail, "mails/confirmation_mail.ftl", model));
         }
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/confirmTeacher")
+    public String confirmTeacherAccaount(Authentication authentication) {
+        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        user.setRole(Role.TEACHER);
+        userService.updateUser(user);
         return "redirect:/profile";
     }
 }

@@ -34,12 +34,17 @@ public class WebSecurityConfig {
         @Qualifier("jwtAuthenticationFilter")
         private GenericFilterBean jwtAuthenticationFilter;
 
+        @Override
+        public void init(WebSecurity web) throws Exception {
+            web.ignoring().antMatchers("/api/signIn");
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
             http.formLogin().disable();
             http.logout().disable();
+            http.antMatcher("/api/**");
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class);
             http.authorizeRequests()

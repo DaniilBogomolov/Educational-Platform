@@ -1,14 +1,14 @@
 package ru.itis.services;
 
+import ru.itis.dto.SignInDto;
 import ru.itis.dto.TokenDto;
 import ru.itis.models.User;
 
 import java.util.Optional;
 
 public interface SignInService {
-    String signIn(String login, String password);
 
-//    TokenDto signIn(String lo);
+    User signIn(SignInDto signInDto);
 
     Optional<User> signIn(String cookie);
 }

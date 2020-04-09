@@ -31,6 +31,7 @@ public class ConfirmServiceImpl implements ConfirmService {
         return false;
     }
 
+
     @Override
     public String getNewConfirmCode(User user) {
         String newIdentifier = UUID.randomUUID().toString();
