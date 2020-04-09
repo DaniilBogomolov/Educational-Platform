@@ -53,6 +53,7 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
                 .confirmed(row.getBoolean("is_confirmed"))
                 .confirmCode(row.getString("confirm_code"))
                 .role(Role.valueOf(row.getString("role")))
+                .profilePhotoLink(row.getString("photo"))
                 .build();
     };
 

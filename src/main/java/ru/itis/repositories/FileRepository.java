@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface FileRepository extends CrudRepository<Long, FileInfo> {
     List<FileInfo> getFilesByUploader(Long uploaderId);
 
-    Optional<FileInfo> getFileByOriginalFileName(String fileName);
+    Optional<FileInfo> getFileByGeneratedFileName(String fileName);
 }

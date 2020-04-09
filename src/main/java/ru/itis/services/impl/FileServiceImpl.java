@@ -81,7 +81,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public MediaType getFileType(String fileName) {
-        Optional<FileInfo> fileInfo = fileRepository.getFileByOriginalFileName(fileName);
+        Optional<FileInfo> fileInfo = fileRepository.getFileByGeneratedFileName(fileName);
         String type = null;
         if (fileInfo.isPresent()) {
             type = fileInfo.get().getType();

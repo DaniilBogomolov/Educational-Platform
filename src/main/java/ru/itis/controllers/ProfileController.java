@@ -36,7 +36,11 @@ public class ProfileController {
 
     @GetMapping
     public ModelAndView getProfile(Authentication authentication) {
-        UserProfileDto dto = UserProfileDto.from(((UserDetailsImpl) authentication.getPrincipal()).getUser());
+        //Need to update user, if they confirmed account
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getUser().getId();
+        userDetails.setUser(userService.getUserById(userId));
+        UserProfileDto dto = UserProfileDto.from(userDetails.getUser());
         return new ModelAndView("profile_page", "user", dto);
     }
 

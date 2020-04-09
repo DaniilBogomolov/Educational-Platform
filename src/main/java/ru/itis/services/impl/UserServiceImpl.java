@@ -8,6 +8,8 @@ import ru.itis.models.User;
 import ru.itis.repositories.UserRepository;
 import ru.itis.services.UserService;
 
+import java.util.Optional;
+
 @Component
 public class UserServiceImpl implements UserService {
 
@@ -18,5 +20,13 @@ public class UserServiceImpl implements UserService {
     public UserProfileDto saveUserProfilePhotoInDB(User user) {
         userRepository.update(user);
         return UserProfileDto.from(user);
+    }
+
+    @Override
+    public User getUserById(Long userId) {
+        Optional<User> userCandidate = userRepository.find(userId);
+        if (userCandidate.isPresent()) {
+            return userCandidate.get();
+        } throw new IllegalArgumentException("No user found!");
     }
 }

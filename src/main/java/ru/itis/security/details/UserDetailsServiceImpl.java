@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Qualifier("userRepositoryJpaImpl")
+    @Qualifier("userRepositoryJdbcTemplateImpl")
     @Autowired
     private UserRepository userRepository;
 

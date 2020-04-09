@@ -19,8 +19,8 @@ import java.util.Optional;
 @Component
 public class FileRepositoryImpl implements FileRepository {
 
+    @Qualifier("userRepositoryJpaImpl")
     @Autowired
-    @Qualifier("userRepositoryJdbcTemplateImpl")
     private UserRepository userRepository;
 
     //language=PostgreSQL
@@ -60,7 +60,7 @@ public class FileRepositoryImpl implements FileRepository {
     }
 
     @Override
-    public Optional<FileInfo> getFileByOriginalFileName(String fileName) {
+    public Optional<FileInfo> getFileByGeneratedFileName(String fileName) {
         try {
             FileInfo fileInfo = jdbcTemplate.queryForObject(SQL_FIND_FILE_BY_GENERATED_FILENAME, new Object[]{fileName}, rowMapper);
             return Optional.ofNullable(fileInfo);
