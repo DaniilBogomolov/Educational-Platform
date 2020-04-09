@@ -24,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -34,6 +35,7 @@ import java.util.concurrent.Executors;
 @Component
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
+@EnableJpaRepositories
 public class ApplicationConfig {
 
     @Autowired
@@ -149,7 +151,7 @@ public class ApplicationConfig {
     private Properties extraProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         properties.setProperty("hibernate.show_sql", "true");
         return properties;
     }

@@ -1,6 +1,7 @@
 package ru.itis.repositories.jpa;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.itis.models.User;
 import ru.itis.repositories.UserRepository;
 
@@ -11,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 public class UserRepositoryJpaImpl implements UserRepository {
 
     @PersistenceContext

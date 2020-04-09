@@ -48,7 +48,7 @@ public class ConfirmController {
     @PostMapping
     public String sendNewConfirmMail(Authentication authentication) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        if (user.getConfirmed() == null) {
+        if (!user.getConfirmed()) {
             Map<String, Object> model = new HashMap<>();
             model.put("identificator", confirmService.getNewConfirmCode(user));
             model.put("firstName", user.getFirstName());

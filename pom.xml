@@ -130,5 +130,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.13.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
     </dependencies>
 </project>
