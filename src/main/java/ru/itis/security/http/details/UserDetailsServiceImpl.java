@@ -1,4 +1,4 @@
-package ru.itis.security.details;
+package ru.itis.security.http.details;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +11,7 @@ import ru.itis.repositories.UserRepository;
 
 import java.util.Optional;
 
-@Service
+@Service("httpDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Qualifier("userRepositoryJdbcTemplateImpl")

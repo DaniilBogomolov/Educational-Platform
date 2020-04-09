@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.models.User;
-import ru.itis.security.details.UserDetailsImpl;
+import ru.itis.security.http.details.UserDetailsImpl;
 
 @Controller
 public class HomeController {

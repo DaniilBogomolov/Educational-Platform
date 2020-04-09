@@ -33,7 +33,7 @@ public class SignInController {
         String cookieValue = signInService.signIn(login, password);
         ModelAndView modelAndView = new ModelAndView();
         if (cookieValue != null) {
-            Cookie cookie = new Cookie("AuthCookie", cookieValue);
+            Cookie cookie = new Cookie("Authorization", cookieValue);
             response.addCookie(cookie);
             modelAndView.setViewName("home_page");
         } else {

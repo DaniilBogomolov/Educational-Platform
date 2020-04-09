@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.models.User;
-import ru.itis.security.details.UserDetailsImpl;
+import ru.itis.security.http.details.UserDetailsImpl;
 import ru.itis.services.FileService;
 
 @Controller

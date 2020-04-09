@@ -1,8 +1,6 @@
 package ru.itis.controllers;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,12 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.dto.UserProfileDto;
 import ru.itis.models.User;
-import ru.itis.repositories.UserRepository;
-import ru.itis.security.details.UserDetailsImpl;
+import ru.itis.security.http.details.UserDetailsImpl;
 import ru.itis.services.FileService;
 import ru.itis.services.UserService;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/profile")

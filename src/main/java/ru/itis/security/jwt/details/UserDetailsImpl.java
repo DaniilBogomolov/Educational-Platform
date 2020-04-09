@@ -1,43 +1,37 @@
-package ru.itis.security.details;
+package ru.itis.security.jwt.details;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.itis.models.User;
+import ru.itis.models.Role;
 
 import java.util.Collection;
 import java.util.Collections;
 
+@Builder
 public class UserDetailsImpl implements UserDetails {
 
-    private User user;
-
-    public UserDetailsImpl(User user) {
-        this.user = user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
-    }
+    @Getter
+    private Long userId;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole().toString());
-        return Collections.singleton(simpleGrantedAuthority);
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.toString());
+        return Collections.singletonList(authority);
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return null;
     }
 
     @Override
@@ -59,4 +53,6 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

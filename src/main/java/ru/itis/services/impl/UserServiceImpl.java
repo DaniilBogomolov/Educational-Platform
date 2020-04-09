@@ -8,6 +8,7 @@ import ru.itis.models.User;
 import ru.itis.repositories.UserRepository;
 import ru.itis.services.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,5 +29,10 @@ public class UserServiceImpl implements UserService {
         if (userCandidate.isPresent()) {
             return userCandidate.get();
         } throw new IllegalArgumentException("No user found!");
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

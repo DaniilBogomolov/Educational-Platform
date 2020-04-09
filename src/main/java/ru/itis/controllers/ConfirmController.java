@@ -2,16 +2,14 @@ package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.models.Mail;
-import ru.itis.models.Status;
 import ru.itis.models.User;
-import ru.itis.security.details.UserDetailsImpl;
+//import ru.itis.security.http.details.UserDetailsImpl;
+import ru.itis.security.http.details.UserDetailsImpl;
 import ru.itis.services.ConfirmService;
 import ru.itis.services.EmailService;
 
