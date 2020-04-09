@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -84,10 +85,10 @@ public class WebSecurityConfig {
                     .logoutSuccessUrl("/home");
 
             http.authorizeRequests()
-//                    .antMatchers("/api/users").denyAll()
                     .antMatchers("/signUp").anonymous()
-                    .antMatchers("/files").authenticated()
-                    .antMatchers("/home", "/confirm/**").permitAll();
+                    .antMatchers("/files", "/profile", "/room/**").authenticated()
+                    .antMatchers("/home", "/confirm/**").permitAll()
+                    .antMatchers( "/room").hasAuthority("TEACHER");
         }
 
         @Override

@@ -74,9 +74,18 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 </form>
             <#elseif user.role == "TEACHER">
-            <a style="color: black;" href="#">Создать комнату</a>
+            <a style="color: black;" href="/room">Создать комнату</a>
         </#if>
-
+        <hr>
+        <#if rooms??>
+            <#list rooms>
+                <ul>
+                    <#items as room>
+                        <li><a style="color: black" href="/room/${room.generatedName}">${room.originalName}</a></li>
+                    </#items>
+                </ul>
+            </#list>
+        </#if>
     </div>
 </div>
 </body>

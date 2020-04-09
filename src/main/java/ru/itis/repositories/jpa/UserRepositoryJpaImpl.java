@@ -53,7 +53,6 @@ public class UserRepositoryJpaImpl implements UserRepository {
     }
 
     @Override
-    @Transactional
     public void save(User entity) {
         entityManager.persist(entity);
     }

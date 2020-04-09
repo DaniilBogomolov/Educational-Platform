@@ -14,6 +14,7 @@ import ru.itis.repositories.UserRepository;
 import ru.itis.services.EmailService;
 import ru.itis.services.SignUpService;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -40,6 +41,7 @@ public class SignUpServiceImpl implements SignUpService {
 
 
     @Override
+    @Transactional
     public boolean signUp(SignUpDto signUpDto) {
         String identifier = UUID.randomUUID().toString();
         User user = User.builder()
