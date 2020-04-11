@@ -19,6 +19,17 @@
             </div>
             <a class="profile">${user.firstName}</a>
         </div>
+        <div class="content">
+            <#if user.rooms?has_content>
+                <#list user.rooms>
+                    <ul>
+                        <#items as room>
+                            <li><a style="color: black" href="/room/${room.identifier}">${room.name}</a></li>
+                        </#items>
+                    </ul>
+                </#list>
+            </#if>
+        </div>
     <#else>
         <div class="right-elements">
             <a class="signUp" href="/signUp">Зарегистрироваться</a>

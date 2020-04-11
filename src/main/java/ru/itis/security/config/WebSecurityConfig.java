@@ -86,9 +86,10 @@ public class WebSecurityConfig {
 
             http.authorizeRequests()
                     .antMatchers("/signUp").anonymous()
-                    .antMatchers("/files", "/profile", "/room/**").authenticated()
+                    .antMatchers("/profile", "/room/**").authenticated()
                     .antMatchers("/home", "/confirm/**").permitAll()
-                    .antMatchers( "/room").hasAuthority("TEACHER");
+                    .antMatchers("/room").hasAuthority("TEACHER")
+                    .antMatchers("/files").hasAnyAuthority("STUDENT", "TEACHER");
         }
 
         @Override

@@ -1,13 +1,12 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -32,9 +31,8 @@ public class Room {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @CollectionTable(name = "room_user_info")
-    private List<User> participants;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rooms")
+    private List<User> participants = new ArrayList<>();
 
     public void addParticipant(User user) {
         if (participants == null) {

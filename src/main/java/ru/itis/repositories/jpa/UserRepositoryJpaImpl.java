@@ -1,5 +1,7 @@
 package ru.itis.repositories.jpa;
 
+import org.hibernate.Hibernate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.itis.models.User;

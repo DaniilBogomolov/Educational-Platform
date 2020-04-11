@@ -1,11 +1,12 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -45,4 +46,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "room_user_info",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id"))
+    @ToString.Exclude
+    private List<Room> rooms = new ArrayList<>();
 }

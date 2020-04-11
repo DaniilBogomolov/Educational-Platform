@@ -43,7 +43,6 @@ public class ProfileController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile_page");
         modelAndView.addObject("user", dto);
-        modelAndView.addObject("rooms", roomService.getUsersRooms(user));
         return modelAndView;
     }
 

@@ -19,8 +19,6 @@ public class RoomRepositoryJpaImpl implements RoomRepository {
 
     private static final String HQL_FIND_BY_IDENTIFIER = "from Room room where room.identifier = :iden";
 
-    //language=HQL
-    private static final String HQL_FIND_ROOM_BY_ID = "from Room room where room.id = :id";
 
     //language=HQL
     public static final String HQL_FIND_ALL_ROOMS = "from Room";
@@ -42,15 +40,7 @@ public class RoomRepositoryJpaImpl implements RoomRepository {
 
     @Override
     public Optional<Room> find(Long id) {
-        try {
-            Room room = entityManager.createQuery(HQL_FIND_ROOM_BY_ID, Room.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-            return Optional.ofNullable(room);
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
-
+        return Optional.ofNullable(entityManager.find(Room.class, id));
     }
 
     @Override

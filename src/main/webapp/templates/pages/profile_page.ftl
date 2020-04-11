@@ -77,8 +77,8 @@
             <a style="color: black;" href="/room">Создать комнату</a>
         </#if>
         <hr>
-        <#if rooms??>
-            <#list rooms>
+        <#if user.rooms??>
+            <#list user.rooms>
                 <ul>
                     <#items as room>
                         <li><a style="color: black" href="/room/${room.generatedName}">${room.originalName}</a></li>
