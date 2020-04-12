@@ -25,6 +25,8 @@ public class UserRoomDto {
 
     private String generatedRoomName;
 
+    private String login;
+
     public static UserRoomDto from(User user, RoomNamesDto roomNamesDto) {
         return UserRoomDto.builder()
                 .firstName(user.getFirstName())
@@ -35,6 +37,7 @@ public class UserRoomDto {
                         .anyMatch(room -> room.getOwner().equals(user)))
                 .originalRoomName(roomNamesDto.getOriginalName())
                 .generatedRoomName(roomNamesDto.getGeneratedName())
+                .login(user.getLogin())
                 .build();
     }
 }

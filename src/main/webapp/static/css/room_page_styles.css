@@ -1,0 +1,9 @@
+@import "profile_page_styles.css";
+
+#messages {
+    border: 1px gray solid;
+}
+
+button {
+    display: block;
+}

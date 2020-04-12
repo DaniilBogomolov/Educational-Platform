@@ -38,7 +38,7 @@ public class SignInServiceImpl implements SignInService {
     @Override
     public User signIn(SignInDto signInDto) {
         System.out.println(signInDto);
-        Optional<User> userCandidate = userRepository.findUserByLogin(signInDto.getLogin());
+        Optional<User> userCandidate = Optional.ofNullable(userRepository.findUserByLogin(signInDto.getLogin()));
         if (userCandidate.isPresent()) {
             User user = userCandidate.get();
             if (encoder.matches(signInDto.getPassword(), user.getPassword())) {

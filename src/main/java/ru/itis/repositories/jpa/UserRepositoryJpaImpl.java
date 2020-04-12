@@ -30,6 +30,7 @@ public class UserRepositoryJpaImpl implements UserRepository {
     //language=HQL
     public static final String HQL_FIND_ALL_USERS = "from User";
 
+
     @Override
     public Optional<User> findUserByConfirmationCode(String code) {
         try {
@@ -43,15 +44,10 @@ public class UserRepositoryJpaImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findUserByLogin(String login) {
-        try {
-            User user = entityManager.createQuery(HQL_FIND_USER_BY_LOGIN, User.class)
-                    .setParameter("login", login)
-                    .getSingleResult();
-            return Optional.ofNullable(user);
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
+    public User findUserByLogin(String login) {
+        return entityManager.createQuery(HQL_FIND_USER_BY_LOGIN, User.class)
+                .setParameter("login", login)
+                .getSingleResult();
     }
 
     @Override

@@ -111,13 +111,8 @@ public class UserRepositoryJdbcTemplateImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findUserByLogin(String login) {
-        try {
-            User user = jdbcTemplate.queryForObject(SQL_FIND_USER_BY_LOGIN, new Object[]{login}, rowMapper);
-            return Optional.ofNullable(user);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
+    public User findUserByLogin(String login) {
+        return jdbcTemplate.queryForObject(SQL_FIND_USER_BY_LOGIN, new Object[]{login}, rowMapper);
     }
 
     @Override

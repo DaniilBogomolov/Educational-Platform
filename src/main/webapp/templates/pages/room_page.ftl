@@ -5,8 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/resources/css/profile_page_styles.css">
-    <title>Document</title>
+
+    <meta name="_csrf_token" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+    <link rel="stylesheet" href="/resources/css/room_page_styles.css">
+    <script src="/resources/js/jQuery.js"></script>
+    <script src="/resources/js/chat.js"></script>
+    <title>${roomUserInfo.originalRoomName}</title>
 </head>
 <body>
 <div class="navbar-container">
@@ -22,5 +28,18 @@
 <#if roomUserInfo.owner>
     <p>Идентификатор для добавления студентов: ${roomUserInfo.generatedRoomName}</p>
 </#if>
+<div class="content">
+    <ul id="messages">
+    </ul>
+    <hr>
+    <input id="new-message-text" type="text">
+<#--    <button onclick="testAjax()">Тест ajax</button>-->
+    <button id="send-new-message-button" onclick="sendMessage(
+            $('#new-message-text').val(),
+    '${roomUserInfo.login}',
+    '${roomUserInfo.fullName}',
+    '${roomUserInfo.generatedRoomName}')">Отправить сообщение
+    </button>
+</div>
 </body>
 </html>
