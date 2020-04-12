@@ -49,4 +49,15 @@ public class ChatServiceImpl implements ChatService {
         messageRepository.save(message);
     }
 
+    @Override
+    @Transactional
+    public List<MessageDto> getAllNonExpiredMessagesForRoom(String roomGeneratedName, LocalDateTime now) {
+        List<Message> messages = messageRepository.getAllMessagesForRoom(roomRepository.findByGeneratedName(roomGeneratedName).getRoomId());
+        return messageRepository.getAllMessagesForRoom(roomRepository.findByGeneratedName(roomGeneratedName).getRoomId())
+                .stream()
+                .filter(message -> message.getExpiringTime().compareTo(now) > 0)
+                .map(MessageDto::from)
+                .collect(Collectors.toList());
+    }
+
 }

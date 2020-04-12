@@ -2,8 +2,19 @@
 
 #messages {
     border: 1px gray solid;
+
+    min-height: 20em;
+    max-height: 20em;
+    overflow: scroll;
+    list-style-type: none;
 }
 
 button {
     display: block;
+}
+
+.content {
+    flex-direction: column;
+
+    max-width: 50%;
 }

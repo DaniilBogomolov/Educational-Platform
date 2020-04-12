@@ -21,3 +21,22 @@ function sendMessage(text, login, senderFullName, roomGeneratedName) {
         dataType: 'json'
     });
 }
+
+
+function receiveMessage(roomGeneratedName) {
+    $.ajax({
+        url: "/messages?roomGeneratedName=" + roomGeneratedName,
+        method: "GET",
+        dataType: "json",
+        contentType: "application/json",
+
+        success: function (response) {
+            for (var key in response) {
+                if (response.hasOwnProperty(key)) {
+                    $('#messages').append('<li>' + response[key]["senderFullName"] + ': ' + response[key]["text"] + '</li>')
+                }
+            }
+            receiveMessage();
+        }
+    });
+}

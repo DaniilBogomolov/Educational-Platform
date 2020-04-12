@@ -39,4 +39,11 @@ public class MessageRepositoryJpaImpl implements MessageRepository {
     public List<Message> findAll() {
         return entityManager.createQuery("from Message", Message.class).getResultList();
     }
+
+    @Override
+    public List<Message> getAllMessagesForRoom(Long roomId) {
+        return entityManager.createQuery("from Message message where message.sentFrom.id = :id", Message.class)
+                .setParameter("id", roomId)
+                .getResultList();
+    }
 }

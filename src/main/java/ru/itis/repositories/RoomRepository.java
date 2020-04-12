@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RoomRepository extends CrudRepository<Long, Room> {
     Room findByGeneratedName(String generatedName);
+
+
 }
