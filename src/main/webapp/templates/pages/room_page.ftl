@@ -14,7 +14,7 @@
     <script src="/resources/js/chat.js"></script>
     <title>${roomUserInfo.originalRoomName}</title>
 </head>
-<body onload="receiveMessage('${roomUserInfo.generatedRoomName}')">
+<body onload="receiveMessageHistory('${roomUserInfo.generatedRoomName}')">
 <div class="navbar-container">
     <a class="files" href="/files">Мои файлы</a>
     <div class="profile-links">
@@ -33,7 +33,6 @@
     </ul>
     <hr>
     <input id="new-message-text" type="text">
-    <#--    <button onclick="testAjax()">Тест ajax</button>-->
     <button id="send-new-message-button" onclick="sendMessage(
             $('#new-message-text').val(),
             '${roomUserInfo.login}',

@@ -6,6 +6,8 @@ function sendMessage(text, login, senderFullName, roomGeneratedName) {
         login : login
     };
 
+    $('#new-message-text').val('');
+
     const csrfHeader = $("meta[name='_csrf_header']").attr("content");
     const csrfToken = $("meta[name='_csrf_token']").attr("content");
 
@@ -22,8 +24,26 @@ function sendMessage(text, login, senderFullName, roomGeneratedName) {
     });
 }
 
-
 function receiveMessage(roomGeneratedName) {
+    $.ajax({
+       url: "/messages/getUpdate?roomGeneratedName=" + roomGeneratedName,
+        method: "GET",
+        dataType: "json",
+        contentType: "application/json",
+
+        success: function (response) {
+            for (var key in response) {
+                if (response.hasOwnProperty(key)) {
+                    $('#messages').append('<li>' + response[key]["senderFullName"] + ': ' + response[key]["text"] + '</li>')
+                }
+            }
+            receiveMessage(roomGeneratedName);
+        }
+    });
+}
+
+
+function receiveMessageHistory(roomGeneratedName) {
     $.ajax({
         url: "/messages?roomGeneratedName=" + roomGeneratedName,
         method: "GET",
@@ -36,7 +56,7 @@ function receiveMessage(roomGeneratedName) {
                     $('#messages').append('<li>' + response[key]["senderFullName"] + ': ' + response[key]["text"] + '</li>')
                 }
             }
-            receiveMessage();
+            receiveMessage(roomGeneratedName);
         }
     });
 }

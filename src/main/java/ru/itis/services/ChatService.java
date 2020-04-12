@@ -12,4 +12,6 @@ public interface ChatService {
     void saveNewMessage(MessageDto messageDto, LocalDateTime time);
 
     List<MessageDto> getAllNonExpiredMessagesForRoom(String roomGeneratedName, LocalDateTime now);
+
+    List<MessageDto> getAllNonExpiredMessagesSentAfter(String roomGeneratedName, LocalDateTime time);
 }

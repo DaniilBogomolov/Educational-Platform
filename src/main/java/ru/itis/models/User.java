@@ -32,23 +32,28 @@ public class User {
     private String login;
 
     @Column(name = "photo")
+    @EqualsAndHashCode.Exclude
     private String profilePhotoLink;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "is_confirmed")
+    @EqualsAndHashCode.Exclude
     private Boolean confirmed;
 
     @Column(name = "confirm_code")
+    @EqualsAndHashCode.Exclude
     private String confirmCode;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
+    @EqualsAndHashCode.Exclude
     private Role role;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "participants")
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Room> rooms;
 
 
