@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.itis.dto.RoomInfoDto;
 import ru.itis.dto.RoomNamesDto;
 import ru.itis.dto.UserProfileDto;
+import ru.itis.dto.UserRoomDto;
 import ru.itis.models.Room;
 import ru.itis.models.User;
 import ru.itis.security.http.details.UserDetailsImpl;
@@ -36,17 +37,12 @@ public class RoomController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         userDetails.setUser(userService.getUserById(user.getId()));
-        UserProfileDto dto = UserProfileDto.from(userDetails.getUser());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("room_page");
-        modelAndView.addObject("user", dto);
-        modelAndView.addObject("room", roomService.getRoomByGeneratedName(roomName));
-        return modelAndView;
+        return new ModelAndView("room_page", "roomUserInfo", UserRoomDto.from(userDetails.getUser(), roomService.getRoomByGeneratedName(roomName)));
     }
 
     @PostMapping("/{roomGeneratedName:.+}")
     public String connectToRoom(@PathVariable String roomGeneratedName,
-                                      Authentication authentication) {
+                                Authentication authentication) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         if (roomService.connectToRoom(roomGeneratedName, user.getId())) {
             String redirectLink = "/room/".concat(roomGeneratedName);
@@ -58,7 +54,7 @@ public class RoomController {
 
     @PostMapping
     public String createNewRoom(@RequestParam String name, Authentication authentication) {
-        User creator = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+        User creator = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         RoomInfoDto infoDto = RoomInfoDto.builder()
                 .name(name)
                 .build();

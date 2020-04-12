@@ -13,12 +13,14 @@
     <a class="files" href="/files">Мои файлы</a>
     <div class="profile-links">
         <div class="profile-image-small">
-            <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
+            <a href="/profile"><img src="${roomUserInfo.profilePhotoLink}" class="profile-image-in-a"></a>
         </div>
-        <a class="profile">${user.firstName}</a>
+        <a class="profile">${roomUserInfo.firstName}</a>
     </div>
 </div>
-
-<h1>Это комната ${room.originalName}</h1>
+<h1>Это комната ${roomUserInfo.originalRoomName}</h1>
+<#if roomUserInfo.owner>
+    <p>Идентификатор для добавления студентов: ${roomUserInfo.generatedRoomName}</p>
+</#if>
 </body>
 </html>
