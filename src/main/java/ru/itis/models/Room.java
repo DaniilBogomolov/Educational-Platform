@@ -31,8 +31,11 @@ public class Room {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rooms")
-    private List<User> participants = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "room_user_info",
+            joinColumns = @JoinColumn(name = "room_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> participants;
 
     public void addParticipant(User user) {
         if (participants == null) {

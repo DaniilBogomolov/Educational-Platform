@@ -13,6 +13,7 @@ public interface RoomService {
 
     RoomNamesDto getRoomByGeneratedName(String generatedName);
 
-
     List<RoomNamesDto> getUsersRooms(User user);
+
+    boolean connectToRoom(String roomGeneratedName, Long userId);
 }

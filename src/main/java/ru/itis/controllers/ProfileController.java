@@ -35,7 +35,7 @@ public class ProfileController {
 
     @GetMapping
     public ModelAndView getProfile(Authentication authentication) {
-        //Need to update user, if they confirmed account
+        //Need to update user, if they confirmed account or created room
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         userDetails.setUser(userService.getUserById(user.getId()));

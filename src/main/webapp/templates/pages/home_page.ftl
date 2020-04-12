@@ -7,6 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home page</title>
     <link rel="stylesheet" href="/resources/css/home_page_styles.css">
+    <script src="/resources/js/jQuery.js"></script>
+    <script>
+        window.onload = function () {
+            $('#connectToRoomButton').click(function () {
+                const roomId = $('#roomId').val();
+                $('#connectToRoomForm').attr('action', 'room/' + roomId);
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -19,22 +28,32 @@
             </div>
             <a class="profile">${user.firstName}</a>
         </div>
-        <div class="content">
-            <#if user.rooms?has_content>
-                <#list user.rooms>
-                    <ul>
-                        <#items as room>
-                            <li><a style="color: black" href="/room/${room.identifier}">${room.name}</a></li>
-                        </#items>
-                    </ul>
-                </#list>
-            </#if>
-        </div>
     <#else>
         <div class="right-elements">
             <a class="signUp" href="/signUp">Зарегистрироваться</a>
             <a class="signIn" href="/signIn">Войти</a>
         </div>
+    </#if>
+</div>
+<div class="content">
+    <#if user?has_content>
+        <h1>Мои комнаты</h1>
+        <#if user.rooms??>
+            <#list user.rooms>
+                <ul>
+                    <#items as room>
+                        <li><a style="color: black" href="/room/${room.generatedName}">${room.originalName}</a></li>
+                    </#items>
+                </ul>
+            </#list>
+        </#if>
+        <hr>
+        <h1>Присоедениться к существующей комнате по идентификатору:</h1>
+        <form id="connectToRoomForm" action="/room" method="post">
+            <input id="roomId" type="text" required>
+            <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+            <button id="connectToRoomButton" type="submit">Присоединиться</button>
+        </form>
     </#if>
 </div>
 </body>

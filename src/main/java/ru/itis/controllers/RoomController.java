@@ -44,6 +44,18 @@ public class RoomController {
         return modelAndView;
     }
 
+    @PostMapping("/{roomGeneratedName:.+}")
+    public String connectToRoom(@PathVariable String roomGeneratedName,
+                                      Authentication authentication) {
+        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        if (roomService.connectToRoom(roomGeneratedName, user.getId())) {
+            String redirectLink = "/room/".concat(roomGeneratedName);
+            return "redirect:" + redirectLink;
+        } else {
+            return "redirect:/home";
+        }
+    }
+
     @PostMapping
     public String createNewRoom(@RequestParam String name, Authentication authentication) {
         User creator = ((UserDetailsImpl)authentication.getPrincipal()).getUser();

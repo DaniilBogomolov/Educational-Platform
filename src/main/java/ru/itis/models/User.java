@@ -47,10 +47,13 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "room_user_info",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "room_id"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "participants")
     @ToString.Exclude
-    private List<Room> rooms = new ArrayList<>();
+    private List<Room> rooms;
+
+
+    public void addRoom(Room room) {
+        if (rooms == null) rooms = new ArrayList<>();
+        rooms.add(room);
+    }
 }

@@ -1,5 +1,6 @@
 package ru.itis.repositories.jpa;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.itis.models.Room;
@@ -26,6 +27,8 @@ public class RoomRepositoryJpaImpl implements RoomRepository {
     @Override
     public void save(Room entity) {
         entityManager.persist(entity);
+
+        Hibernate.initialize(entity.getOwner());
     }
 
     @Override
