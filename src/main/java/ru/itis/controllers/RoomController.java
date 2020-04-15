@@ -37,7 +37,7 @@ public class RoomController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         userDetails.setUser(userService.getUserById(user.getId()));
-        return new ModelAndView("room_page", "roomUserInfo", UserRoomDto.from(userDetails.getUser(), roomService.getRoomByGeneratedName(roomName)));
+        return new ModelAndView("room_page", "roomUserInfo", UserRoomDto.from(userDetails.getUser(), roomService.getRoomNamesByGeneratedName(roomName)));
     }
 
     @PostMapping("/{roomGeneratedName:.+}")

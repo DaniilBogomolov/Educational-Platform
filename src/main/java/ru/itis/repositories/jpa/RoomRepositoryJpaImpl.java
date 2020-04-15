@@ -18,7 +18,7 @@ public class RoomRepositoryJpaImpl implements RoomRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private static final String HQL_FIND_BY_IDENTIFIER = "from Room room where room.identifier = :iden";
+    private static final String HQL_FIND_BY_IDENTIFIER = "from Room room join fetch room.participants where room.identifier = :iden";
 
 
     //language=HQL

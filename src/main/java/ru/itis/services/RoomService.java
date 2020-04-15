@@ -11,9 +11,11 @@ public interface RoomService {
 
     Room createRoom(RoomInfoDto roomInfo);
 
-    RoomNamesDto getRoomByGeneratedName(String generatedName);
+    RoomNamesDto getRoomNamesByGeneratedName(String generatedName);
 
     List<RoomNamesDto> getUsersRooms(User user);
 
     boolean connectToRoom(String roomGeneratedName, Long userId);
+
+    Room getRoomByGeneratedName(String generatedName);
 }

@@ -30,6 +30,9 @@ public class UserRepositoryJpaImpl implements UserRepository {
     //language=HQL
     public static final String HQL_FIND_ALL_USERS = "from User";
 
+    //language=HQL
+    public static final String HQL_FIND_USER_BY_ID = "select user from User user join fetch user.rooms where user.id = :id";
+
 
     @Override
     public Optional<User> findUserByConfirmationCode(String code) {
@@ -69,7 +72,9 @@ public class UserRepositoryJpaImpl implements UserRepository {
 
     @Override
     public Optional<User> find(Long id) {
-        return Optional.ofNullable(entityManager.find(User.class, id));
+        return Optional.ofNullable(entityManager.createQuery(HQL_FIND_USER_BY_ID, User.class)
+                .setParameter("id", id)
+                .getSingleResult());
     }
 
     @Override

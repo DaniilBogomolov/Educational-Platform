@@ -31,9 +31,7 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long userId) {
         Optional<User> userCandidate = userRepository.find(userId);
         if (userCandidate.isPresent()) {
-            User user = userCandidate.get();
-            Hibernate.initialize(user.getRooms());
-            return user;
+            return userCandidate.get();
         } throw new IllegalArgumentException("No user found!");
     }
 

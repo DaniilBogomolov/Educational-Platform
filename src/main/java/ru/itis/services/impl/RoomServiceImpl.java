@@ -42,8 +42,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomNamesDto getRoomByGeneratedName(String generatedName) {
-        return RoomNamesDto.from(roomRepository.findByGeneratedName(generatedName));
+    public RoomNamesDto getRoomNamesByGeneratedName(String generatedName) {
+        return RoomNamesDto.from(getRoomByGeneratedName(generatedName));
     }
 
     @Override
@@ -53,6 +53,11 @@ public class RoomServiceImpl implements RoomService {
                 .filter(room -> room.getParticipants().contains(user))
                 .map(RoomNamesDto::from)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Room getRoomByGeneratedName(String generatedName) {
+        return roomRepository.findByGeneratedName(generatedName);
     }
 
     @Override
