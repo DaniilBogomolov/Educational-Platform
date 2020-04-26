@@ -8,13 +8,16 @@
 
     <meta name="_csrf_token" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta name="_room_generated_name" content="${roomUserInfo.generatedRoomName}">
 
     <link rel="stylesheet" href="/resources/css/room_page_styles.css">
     <script src="/resources/js/jQuery.js"></script>
-    <script src="/resources/js/chat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="/resources/js/websocket_chat.js"></script>
     <title>${roomUserInfo.originalRoomName}</title>
 </head>
-<body onload="receiveMessageHistory('${roomUserInfo.generatedRoomName}')">
+<body>
 <div class="navbar-container">
     <a class="files" href="/files">Мои файлы</a>
     <div class="profile-links">
@@ -32,12 +35,12 @@
     <ul id="messages">
     </ul>
     <hr>
-    <input id="new-message-text" type="text">
+    <input id="text" type="text">
     <button id="send-new-message-button" onclick="sendMessage(
-            $('#new-message-text').val(),
+            $('#text').val(),
             '${roomUserInfo.login}',
-            '${roomUserInfo.fullName}',
-            '${roomUserInfo.generatedRoomName}')">Отправить сообщение
+            '${roomUserInfo.fullName}'
+            )">Отправить сообщение
     </button>
 </div>
 </body>

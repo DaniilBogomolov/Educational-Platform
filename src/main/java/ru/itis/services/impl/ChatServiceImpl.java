@@ -38,7 +38,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public void saveNewMessage(MessageDto messageDto, LocalDateTime time) {
+    public MessageDto saveNewMessage(MessageDto messageDto, LocalDateTime time) {
         Message message = Message.builder()
                 .text(messageDto.getText())
                 .timeSent(time)
@@ -47,6 +47,7 @@ public class ChatServiceImpl implements ChatService {
                 .sentFrom(roomRepository.findByGeneratedName(messageDto.getRoomGeneratedName()))
                 .build();
         messageRepository.save(message);
+        return MessageDto.from(message);
     }
 
     @Override
