@@ -12,6 +12,7 @@ import ru.itis.models.FileInfo;
 import ru.itis.repositories.FileRepository;
 import ru.itis.repositories.UserRepository;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,11 @@ public class FileRepositoryImpl implements FileRepository {
             "values(?, ?, ?, ?, ?)";
 
     //language=SQL
+    private static final String SQL_FIND_ALL = "select * from file_info";
+
+    //language=SQL
     private static final String SQL_FIND_FILES_BY_USER_ID = "select * from file_info where uploader_id = ?";
+
 
     //language=SQL
     private static final String SQL_FIND_FILE_BY_GENERATED_FILENAME = "select * from file_info where generated_filename = ?";
@@ -53,21 +58,6 @@ public class FileRepositoryImpl implements FileRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-    @Override
-    public List<FileInfo> getFilesByUploader(Long uploaderId) {
-        return jdbcTemplate.query(SQL_FIND_FILES_BY_USER_ID, new Object[]{uploaderId}, rowMapper);
-    }
-
-    @Override
-    public Optional<FileInfo> getFileByGeneratedFileName(String fileName) {
-        try {
-            FileInfo fileInfo = jdbcTemplate.queryForObject(SQL_FIND_FILE_BY_GENERATED_FILENAME, new Object[]{fileName}, rowMapper);
-            return Optional.ofNullable(fileInfo);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
-        }
-    }
 
     @Override
     public void save(FileInfo entity) {
@@ -101,6 +91,27 @@ public class FileRepositoryImpl implements FileRepository {
 
     @Override
     public List<FileInfo> findAll() {
-        return null;
+        return jdbcTemplate.query(SQL_FIND_ALL, rowMapper);
+    }
+
+
+    @Override
+    public List<FileInfo> getFilesByUploader(Long uploaderId) {
+        return jdbcTemplate.query(SQL_FIND_FILES_BY_USER_ID, new Object[]{uploaderId}, rowMapper);
+    }
+
+    @Override
+    public Optional<FileInfo> getFileByGeneratedFileName(String fileName) {
+        try {
+            FileInfo fileInfo = jdbcTemplate.queryForObject(SQL_FIND_FILE_BY_GENERATED_FILENAME, new Object[]{fileName}, rowMapper);
+            return Optional.ofNullable(fileInfo);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<FileInfo> getFilesByUploaderLogin(String login) {
+        return null; //TODO
     }
 }

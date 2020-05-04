@@ -3,6 +3,7 @@ package ru.itis.services;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
+import ru.itis.dto.UploadedFileInfoDto;
 import ru.itis.models.FileInfo;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface FileService {
 
     MediaType getFileType(String fileName);
 
-    List<FileInfo> findFilesByUserID(Long id);
+    List<UploadedFileInfoDto> findFilesByUserID(Long id);
+
+    List<UploadedFileInfoDto> findFilesByUserLogin(String login);
 }

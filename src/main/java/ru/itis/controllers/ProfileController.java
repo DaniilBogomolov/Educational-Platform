@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,29 +35,27 @@ public class ProfileController {
     private String domain;
 
     @GetMapping
-    public ModelAndView getProfile(Authentication authentication) {
+    public String getProfile(Authentication authentication,
+                             ModelMap model) {
         //Need to update user, if they confirmed account or created room
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         userDetails.setUser(userService.getUserById(user.getId()));
         UserProfileDto dto = UserProfileDto.from(userDetails.getUser());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profile_page");
-        modelAndView.addObject("user", dto);
-        return modelAndView;
+        model.addAttribute("user", dto);
+        return "profile_page";
     }
 
 
     @PostMapping
-    public ModelAndView uploadProfilePhoto(@RequestParam("file") MultipartFile file,
+    public String uploadProfilePhoto(@RequestParam("file") MultipartFile file,
                                            Authentication authentication) {
 
         User currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         String newPhotoURI = fileService.saveFile(file, currentUser.getId()).getUrl();
-        System.out.println(newPhotoURI);
         currentUser.setProfilePhotoLink(domain.concat(newPhotoURI));
         userService.saveUserProfilePhotoInDB(currentUser);
 
-        return getProfile(authentication);
+        return "redirect:/profile";
     }
 }

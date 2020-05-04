@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.dto.RoomInfoDto;
@@ -32,12 +33,14 @@ public class RoomController {
     }
 
     @GetMapping("/{roomName:.+}")
-    public ModelAndView getRoom(@PathVariable String roomName,
-                                Authentication authentication) {
+    public String getRoom(@PathVariable String roomName,
+                          Authentication authentication,
+                          ModelMap model) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         userDetails.setUser(userService.getUserById(user.getId()));
-        return new ModelAndView("room_page", "roomUserInfo", UserRoomDto.from(userDetails.getUser(), roomService.getRoomNamesByGeneratedName(roomName)));
+        model.addAttribute("roomUserInfo", UserRoomDto.from(userDetails.getUser(), roomService.getRoomNamesByGeneratedName(roomName)));
+        return "room_page";
     }
 
     @PostMapping("/{roomGeneratedName:.+}")

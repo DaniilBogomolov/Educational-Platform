@@ -22,6 +22,7 @@ import ru.itis.security.jwt.filter.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
     @Order(1)
@@ -48,8 +49,6 @@ public class WebSecurityConfig {
             http.antMatcher("/api/**");
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.addFilterBefore(jwtAuthenticationFilter, AnonymousAuthenticationFilter.class);
-            http.authorizeRequests()
-                    .antMatchers("/api/users").authenticated();
         }
 
         @Override

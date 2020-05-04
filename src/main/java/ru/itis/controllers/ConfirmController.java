@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.models.Mail;
@@ -39,13 +40,12 @@ public class ConfirmController {
     private String wrongIdentifierError;
 
     @GetMapping("/{confirm-code}")
-    public ModelAndView confirm(@PathVariable("confirm-code") String confirmIdentifier) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String confirm(@PathVariable("confirm-code") String confirmIdentifier,
+                          ModelMap model) {
         if (!confirmService.confirm(confirmIdentifier)) {
-            modelAndView.addObject("error", wrongIdentifierError);
+            model.addAttribute("error", wrongIdentifierError);
         }
-        modelAndView.setViewName("confirm_page");
-        return modelAndView;
+        return "confirm_page";
     }
 
     @PostMapping
@@ -67,7 +67,7 @@ public class ConfirmController {
     }
 
     @PostMapping("/confirmTeacher")
-    public String confirmTeacherAccaount(Authentication authentication) {
+    public String confirmTeacherAccount(Authentication authentication) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         user.setRole(Role.TEACHER);
         userService.updateUser(user);

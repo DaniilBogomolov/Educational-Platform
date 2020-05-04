@@ -35,7 +35,11 @@
     <ul id="messages">
     </ul>
     <hr>
-    <input id="text" type="text">
+    <div id="input">
+        <input id="text" type="text">
+        <select id="files">
+        </select>
+    </div>
     <button id="send-new-message-button" onclick="sendMessage(
             $('#text').val(),
             '${roomUserInfo.login}',
@@ -43,5 +47,6 @@
             )">Отправить сообщение
     </button>
 </div>
+<script src="/resources/js/room_page_logic.js"></script>
 </body>
 </html>

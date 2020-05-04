@@ -3,6 +3,7 @@ package ru.itis.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,13 +19,13 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView getHomePage(Authentication auth) {
-        if (auth == null) {
-            return new ModelAndView("home_page");
-        } else {
+    public String getHomePage(Authentication auth,
+                              ModelMap model) {
+        if (auth != null) {
             User user = ((UserDetailsImpl) auth.getPrincipal()).getUser();
             UserProfileDto dto = UserProfileDto.from(userService.getUserById(user.getId()));
-            return new ModelAndView("home_page", "user", dto);
+            model.addAttribute("user", dto);
         }
+        return "home_page";
     }
 }

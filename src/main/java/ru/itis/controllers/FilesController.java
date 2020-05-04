@@ -1,11 +1,13 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,13 +22,16 @@ public class FilesController {
     @Autowired
     private FileService fileService;
 
+
     @PostMapping
-    public ModelAndView uploadFile(@RequestParam("file") MultipartFile multipartFile,
-                                   Authentication authentication) {
+    public String uploadFile(@RequestParam("file") MultipartFile multipartFile,
+                             Authentication authentication,
+                             ModelMap modelMap) {
+        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         if (multipartFile.getOriginalFilename() != null && !multipartFile.getOriginalFilename().isEmpty()) {
-            fileService.saveFile(multipartFile, ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId());
+            fileService.saveFile(multipartFile, user.getId());
         }
-        return getFiles(authentication);
+        return "redirect:/files";
     }
 
     @GetMapping("/{fileName:.+}")
@@ -39,12 +44,11 @@ public class FilesController {
     }
 
     @GetMapping
-    public ModelAndView getFiles(Authentication authentication) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("upload_files_page");
+    public String getFiles(Authentication authentication,
+                           ModelMap modelMap) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
-        modelAndView.addObject("files", fileService.findFilesByUserID(user.getId()));
-        return modelAndView;
+        modelMap.addAttribute("files", fileService.findFilesByUserID(user.getId()));
+        return "upload_files_page";
     }
 
 }
