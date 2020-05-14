@@ -14,13 +14,13 @@ import java.util.Optional;
 @Service("httpDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Qualifier("userRepositoryJdbcTemplateImpl")
+    @Qualifier("userRepositoryJpaImpl")
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<User> userCandidate = Optional.ofNullable(userRepository.findUserByLogin(login));
+        Optional<User> userCandidate = userRepository.findUserByLogin(login);
         if (userCandidate.isPresent()) {
             User user = userCandidate.get();
             return new UserDetailsImpl(user);

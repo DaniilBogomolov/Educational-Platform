@@ -2,6 +2,7 @@ package ru.itis.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
@@ -16,9 +17,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.web.filter.GenericFilterBean;
 import ru.itis.security.jwt.filter.JwtAuthenticationFilter;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -70,6 +77,16 @@ public class WebSecurityConfig {
         @Autowired
         private PasswordEncoder passwordEncoder;
 
+        @Autowired
+        private DataSource dataSource;
+
+        @Bean
+        public PersistentTokenRepository persistentTokenRepository() {
+            JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+            jdbcTokenRepository.setDataSource(dataSource);
+            return jdbcTokenRepository;
+        }
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.formLogin()
@@ -79,16 +96,19 @@ public class WebSecurityConfig {
                     .usernameParameter("login")
                     .permitAll();
 
-            http.logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/home");
+            http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/home")
+                    .deleteCookies("JSESSIONID", "remember-me")
+                    .invalidateHttpSession(true);
 
             http.authorizeRequests()
                     .antMatchers("/signUp").anonymous()
                     .antMatchers("/profile", "/room/**", "/chat").authenticated()
                     .antMatchers("/home", "/confirm/**").permitAll()
                     .antMatchers("/room").hasAuthority("TEACHER")
-                    .antMatchers("/files").hasAnyAuthority("STUDENT", "TEACHER");
+                    .antMatchers("/files").hasAnyAuthority("STUDENT", "TEACHER")
+            .and()
+            .rememberMe().rememberMeParameter("remember-me").tokenRepository(persistentTokenRepository());
         }
 
         @Override

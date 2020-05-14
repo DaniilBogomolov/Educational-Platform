@@ -16,10 +16,12 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
+import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -36,6 +38,7 @@ import java.util.concurrent.Executors;
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories
+@EnableJdbcHttpSession
 public class ApplicationConfig {
 
     @Autowired
@@ -133,7 +136,6 @@ public class ApplicationConfig {
     }
 
     @Bean
-    @Autowired
     public DataSource hikariDataSource() {
         return new HikariDataSource(hikariConfig());
     }
