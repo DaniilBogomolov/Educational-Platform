@@ -1,5 +1,5 @@
 *.class
-*.properties
+application.properties
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -28,4 +28,6 @@ effective-settings.xml
 *.log
 *.lck
 *.jar
+.gradle
+build
 */dependency-reduced-pom.xml
