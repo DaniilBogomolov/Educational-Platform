@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=newPass
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=Educational_Platform_DB
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - "files-storage:/data"
+volumes:
+  files-storage:
+  db-data:
