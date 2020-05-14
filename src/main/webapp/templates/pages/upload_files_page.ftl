@@ -15,7 +15,6 @@
       method="post"
       enctype="multipart/form-data">
     <input type="file" name="file">
-<#--    <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
     <input type="submit" value="Upload">
 </form>
 <hr>

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<#import "spring.ftl" as spring/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -19,7 +20,7 @@
 </head>
 <body>
 <div class="navbar-container">
-    <a class="files" href="/files">Мои файлы</a>
+    <a class="files" href="/files"><@spring.message 'files'></a>
     <div class="profile-links">
         <div class="profile-image-small">
             <a href="/profile"><img src="${roomUserInfo.profilePhotoLink}" class="profile-image-in-a"></a>
@@ -29,7 +30,7 @@
 </div>
 <h1>Это комната ${roomUserInfo.originalRoomName}</h1>
 <#if roomUserInfo.owner>
-    <p>Идентификатор для добавления студентов: ${roomUserInfo.generatedRoomName}</p>
+    <p><@spring.message 'room.identifier'/>: ${roomUserInfo.generatedRoomName}</p>
 </#if>
 <div class="content">
     <ul id="messages">
@@ -44,7 +45,7 @@
             $('#text').val(),
             '${roomUserInfo.login}',
             '${roomUserInfo.fullName}'
-            )">Отправить сообщение
+            )"><@spring.message 'send.message'/>
     </button>
 </div>
 <script src="/resources/js/room_page_logic.js"></script>

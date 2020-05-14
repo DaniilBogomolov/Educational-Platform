@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ru">
+<#import "spring.ftl" as spring/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -30,8 +31,8 @@
         </div>
     <#else>
         <div class="right-elements">
-            <a class="signUp" href="/signUp">Зарегистрироваться</a>
-            <a class="signIn" href="/signIn">Войти</a>
+            <a class="signUp" href="/signUp"><@spring.message 'navbar.sign.up'/></a>
+            <a class="signIn" href="/signIn"><@spring.message 'navbar.sign.in'/></a>
         </div>
     </#if>
 </div>

@@ -1,4 +1,5 @@
 <!doctype html>
+<#import "spring.ftl" as spring/>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -8,15 +9,31 @@
     <title>Зарегистрироваться</title>
 </head>
 <body>
-<h1>Зарегистрироваться</h1>
-<form method="post" action="/signUp">
-    <input type="text" name="firstName" placeholder="firstName" required>
-    <input type="text" name="lastName" placeholder="lastName" required>
-    <input type="email" name="email" placeholder="email" required>
-    <input type="text" name="login" placeholder="login" required>
-    <input type="password" name="password" placeholder="password" required>
-    <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    <button type="submit">Подтвердить</button>
-</form>
+<h1><@spring.message 'navbar.sign.up'/></h1>
+<div>
+    <@spring.bind "signUpDto"/>
+    <form method="post" action="/signUp">
+        <@spring.message 'sign.up.firstName'/> <br>
+        <@spring.formInput "signUpDto.firstName"/>
+        <@spring.showErrors "<br>"/>
+        <br>
+        <@spring.message 'sign.up.lastName'/> <br>
+        <@spring.formInput "signUpDto.lastName"/>
+        <@spring.showErrors "<br>"/>
+        <br>
+        <@spring.message 'sign.up.email'/> <br>
+        <@spring.formInput "signUpDto.email"/>
+        <@spring.showErrors "<br>"/>
+        <br>
+        <@spring.message 'sign.up.login'/> <br>
+        <input type="text" name="login" placeholder="login" required>
+        <br>
+        <@spring.message 'sign.up.password'/> <br>
+        <input type="password" name="password" placeholder="password" required>
+        <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        <br>
+        <button type="submit">Подтвердить</button>
+    </form>
+</div>
 </body>
 </html>

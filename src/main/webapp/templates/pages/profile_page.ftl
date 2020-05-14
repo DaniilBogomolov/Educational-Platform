@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ru">
+<#import "spring.ftl" as spring/>
 
 <head>
     <meta charset="UTF-8">
@@ -33,7 +34,7 @@
 </head>
 <body>
 <div class="navbar-container">
-    <a class="files" href="/files">Мои файлы</a>
+    <a class="files" href="/files"><@spring.message 'files'/></a>
     <div class="profile-links">
         <div class="profile-image-small">
             <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
@@ -57,12 +58,11 @@
 
     <div class="profile-info">
         <#if user.role == "USER">
-            <h3>Для получения статуса студента перейдите по ссылке подтверждения.
-                <br> Мы отправили ее вам на Вашу электронную почту</h3>
-            <h6>Не получили сообщение? Проверьте спам или <br>
+            <h3><@spring.message 'student.status.first'/><br><@spring.message 'student.status.second'/></h3>
+            <h6><@spring.message 'student.status.third'/><br>
                 <form action="/confirm" method="post">
                     <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <input class="new-confirm-code" type="submit" value="получите новый код подтверждения"/>
+                    <input class="new-confirm-code" type="submit" value=<@spring.message 'student.status.fourth'/>/>
                 </form>
             </h6>
             <#elseif user.role == "STUDENT">
@@ -70,7 +70,7 @@
                     <input type="submit"
                            style="color: black"
                            class="teacher-status"
-                           value="Получить статус преподавателя"/>
+                           value=<@spring.message 'teacher.status.get'/>/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 </form>
             <#elseif user.role == "TEACHER">

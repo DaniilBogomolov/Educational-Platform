@@ -8,4 +8,7 @@
     <context:component-scan base-package="ru.itis"/>
     <aop:aspectj-autoproxy/>
     <mvc:resources mapping="/resources/**" location="/static/"/>
+    <mvc:interceptors>
+        <bean class="ru.itis.interceptors.LanguageChangeInterceptor"/>
+    </mvc:interceptors>
 </beans>

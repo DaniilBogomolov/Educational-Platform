@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ru">
+<#import "spring.ftl" as spring/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +11,7 @@
 <body>
 <form action="/room" method="post">
     <input type="text" name="name" placeholder="Название комнаты"/>
-    <button type="submit">Создать</button>
+    <button type="submit"><@spring.message "create"/></button>
     <input hidden="hidden"
            name="${_csrf.parameterName}"
            value="${_csrf.token}">

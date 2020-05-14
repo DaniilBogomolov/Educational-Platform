@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<#import "spring.ftl" as spring/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,8 +12,8 @@
 <#if error??>
     <h1>${error}</h1>
 <#else>
-    <h1>Confirmed</h1>
-    <a href="/profile">Перейти на страницу профиля</a>
+    <h1><@spring.message 'confirmed'></h1>
+    <a href="/profile"><@spring.message "link.profile"/></a>
 </#if>
 </body>
 </html>
