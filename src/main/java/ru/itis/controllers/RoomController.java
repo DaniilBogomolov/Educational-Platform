@@ -27,6 +27,7 @@ public class RoomController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping
     public String getRoomCreationPage() {
         return "create_room_page";
@@ -39,7 +40,8 @@ public class RoomController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         userDetails.setUser(userService.getUserById(user.getId()));
-        model.addAttribute("roomUserInfo", UserRoomDto.from(userDetails.getUser(), roomService.getRoomNamesByGeneratedName(roomName)));
+        model.addAttribute("roomUserInfo",
+                UserRoomDto.from(userDetails.getUser(), roomService.getRoomNamesByGeneratedName(roomName)));
         return "room_page";
     }
 

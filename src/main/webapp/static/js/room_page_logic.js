@@ -1,10 +1,23 @@
 const filesSelector = $('#files');
-const uploadedFiles = $('#uploaded');
+const cancel = document.getElementById("cancel");
+const cancelElement = document.createElement("option");
+cancelElement.setAttribute("value", "none");
 
 
-filesSelector.click(function () {
-    filesSelector.empty();
-    filesSelector.append("<option id='back'>Back</option>");
-    filesSelector.append("<option id='uploaded'>Выбрать мой файл</option>");
-    filesSelector.append("<option id='uploadNew'>Выбрать файл с компьютера</option>");
-}).trigger("change");
+function insertFileOption(file) {
+    filesSelector.append("<option value='" + file.url + "'>" + file.originalFileName + "</option>");
+}
+
+function uploadAvailableFiles(login) {
+    $.ajax({
+        method : "get",
+        url : "/files/user/".concat(login),
+        success: function (files) {
+            filesSelector.empty();
+            filesSelector.append(cancelElement);
+            for (var index in files) {
+                insertFileOption(files[index]);
+            }
+        }
+    });
+}

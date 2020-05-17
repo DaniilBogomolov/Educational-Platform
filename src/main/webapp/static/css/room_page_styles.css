@@ -9,6 +9,10 @@
     list-style-type: none;
 }
 
+a {
+    color: blue;
+}
+
 button {
     display: block;
 }

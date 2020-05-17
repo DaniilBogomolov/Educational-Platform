@@ -15,17 +15,16 @@
     <script src="/resources/js/jQuery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="/resources/js/websocket_chat.js"></script>
     <title>${roomUserInfo.originalRoomName}</title>
 </head>
 <body>
 <div class="navbar-container">
-    <a class="files" href="/files"><@spring.message 'files'></a>
+    <a style="color: white" class="files" href="/files"><@spring.message 'files'/></a>
     <div class="profile-links">
         <div class="profile-image-small">
             <a href="/profile"><img src="${roomUserInfo.profilePhotoLink}" class="profile-image-in-a"></a>
         </div>
-        <a class="profile">${roomUserInfo.firstName}</a>
+        <a style="color: white" class="profile">${roomUserInfo.firstName}</a>
     </div>
 </div>
 <h1>Это комната ${roomUserInfo.originalRoomName}</h1>
@@ -38,7 +37,9 @@
     <hr>
     <div id="input">
         <input id="text" type="text">
-        <select id="files">
+        <select id="files" onclick="uploadAvailableFiles('${roomUserInfo.login}')">
+            <option id="default-option" selected value="none"><@spring.message 'attach.file'/></option>
+            <option id="cancel" hidden value="<@spring.message 'cancel'/>"></option>
         </select>
     </div>
     <button id="send-new-message-button" onclick="sendMessage(
@@ -49,5 +50,6 @@
     </button>
 </div>
 <script src="/resources/js/room_page_logic.js"></script>
+<script src="/resources/js/websocket_chat.js"></script>
 </body>
 </html>

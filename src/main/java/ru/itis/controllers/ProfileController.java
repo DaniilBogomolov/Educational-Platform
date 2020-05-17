@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.itis.dto.UserProfileDto;
@@ -35,7 +33,7 @@ public class ProfileController {
     private String domain;
 
     @GetMapping
-    public String getProfile(Authentication authentication,
+    public String getMyProfile(Authentication authentication,
                              ModelMap model) {
         //Need to update user, if they confirmed account or created room
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -46,6 +44,14 @@ public class ProfileController {
         return "profile_page";
     }
 
+    @GetMapping("/{userLogin}")
+    public String getUserProfile(Authentication authentication,
+                                 Model model,
+                                 @PathVariable String userLogin) {
+        User accessor = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        model.addAttribute("user", UserProfileDto.from(accessor, userService.getUserByLogin(userLogin)));
+        return "profile_page";
+    }
 
     @PostMapping
     public String uploadProfilePhoto(@RequestParam("file") MultipartFile file,

@@ -45,4 +45,10 @@ public class UserServiceImpl implements UserService {
         userRepository.update(user);
         return user;
     }
+
+    @Override
+    @Transactional
+    public User getUserByLogin(String login) {
+        return userRepository.findUserByLogin(login).orElseThrow();
+    }
 }

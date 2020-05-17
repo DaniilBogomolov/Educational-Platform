@@ -30,11 +30,12 @@ public class MessageController {
     @SendTo("/topic/room/{roomName}")
     public MessageDto sendMessage(@DestinationVariable String roomName,
                                   MessageDto messageDto) {
+        System.err.println(messageDto);
         return chatService.saveNewMessage(messageDto, now());
     }
 
     @GetMapping("/messages/{roomName}")
-    public ResponseEntity<List<RoomMessageDto>> getMessages(@PathVariable String roomName) {
+    public ResponseEntity<List<MessageDto>> getMessages(@PathVariable String roomName) {
         return ResponseEntity.ok(chatService.getAllNonExpiredMessagesForRoom(roomName, now()));
     }
 }

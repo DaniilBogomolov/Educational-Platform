@@ -5,6 +5,7 @@ import ru.itis.models.FileInfo;
 import ru.itis.repositories.FileRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.io.File;
 import java.util.List;
@@ -28,6 +29,7 @@ public class FileRepositoryJpaImpl implements FileRepository {
     //language=HQL
     private static final String HQL_FIND_ALL = "from FileInfo";
 
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -40,9 +42,14 @@ public class FileRepositoryJpaImpl implements FileRepository {
 
     @Override
     public Optional<FileInfo> getFileByGeneratedFileName(String fileName) {
-        return Optional.ofNullable(entityManager.createQuery(HQL_FIND_BY_GENERATE_NAME, FileInfo.class)
-                .setParameter("name", fileName)
-                .getSingleResult());
+        try {
+            FileInfo info = entityManager.createQuery(HQL_FIND_BY_GENERATE_NAME, FileInfo.class)
+                    .setParameter("name", fileName)
+                    .getSingleResult();
+            return Optional.ofNullable(info);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

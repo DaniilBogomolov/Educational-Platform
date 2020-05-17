@@ -16,18 +16,30 @@ import java.util.stream.Collectors;
 @Builder
 public class UserProfileDto {
     private String firstName;
+    private String navbarFirstName;
+    private String navbarPhotoLink;
     private String profilePhotoLink;
     private Role role;
     private List<RoomNamesDto> rooms;
+    private boolean myProfile;
 
     public static UserProfileDto from(User user) {
+        UserProfileDto profileDto =  from(user, user);
+        profileDto.setMyProfile(true);
+        return profileDto;
+    }
+
+    public static UserProfileDto from(User accessor, User profile) {
         return UserProfileDto.builder()
-                .firstName(user.getFirstName())
-                .profilePhotoLink(user.getProfilePhotoLink())
-                .role(user.getRole())
-                .rooms(user.getRooms().stream()
+                .firstName(profile.getFirstName())
+                .navbarFirstName(accessor.getFirstName())
+                .profilePhotoLink(profile.getProfilePhotoLink())
+                .navbarPhotoLink(accessor.getProfilePhotoLink())
+                .role(profile.getRole())
+                .rooms(profile.getRooms().stream()
                         .map(RoomNamesDto::from)
                         .collect(Collectors.toList()))
+                .myProfile(false)
                 .build();
     }
 }

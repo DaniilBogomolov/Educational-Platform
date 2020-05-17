@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.models.FileInfo;
 import ru.itis.models.Message;
 import ru.itis.models.User;
 
@@ -21,6 +22,8 @@ public class MessageDto {
 
     private String login;
 
+    private UploadedFileInfoDto attachment;
+
     public static MessageDto from(Message message) {
         User sender = message.getSender();
         return MessageDto.builder()
@@ -29,5 +32,16 @@ public class MessageDto {
                 .roomGeneratedName(message.getSentFrom().getIdentifier())
                 .login(message.getSender().getLogin())
                 .build();
+    }
+
+    public static MessageDto from(Message message, FileInfo info) {
+        MessageDto messageDto = from(message);
+        if (info != null) {
+            messageDto.setAttachment(UploadedFileInfoDto.builder()
+                    .originalFileName(info.getOriginalFileName())
+                    .url("/files/".concat(info.getStorageFileName()))
+                    .build());
+        }
+        return messageDto;
     }
 }

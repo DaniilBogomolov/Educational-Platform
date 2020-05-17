@@ -30,16 +30,18 @@
                 })
             })
         }
+
+
     </script>
 </head>
 <body>
 <div class="navbar-container">
-    <a class="files" href="/files"><@spring.message 'files'/></a>
+    <a style="color: white" class="files" href="/files"><@spring.message 'files'/></a>
     <div class="profile-links">
         <div class="profile-image-small">
-            <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>
+            <a href="/profile"><img src="${user.navbarPhotoLink}" class="profile-image-in-a"></a>
         </div>
-        <a class="profile">${user.firstName}</a>
+        <a style="color: white" class="profile">${user.navbarFirstName}</a>
     </div>
 </div>
 
@@ -57,24 +59,28 @@
     </div>
 
     <div class="profile-info">
-        <#if user.role == "USER">
-            <h3><@spring.message 'student.status.first'/><br><@spring.message 'student.status.second'/></h3>
-            <h6><@spring.message 'student.status.third'/><br>
-                <form action="/confirm" method="post">
-                    <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                    <input class="new-confirm-code" type="submit" value=<@spring.message 'student.status.fourth'/>/>
-                </form>
-            </h6>
+        <#if user.myProfile == true>
+            <#if user.role == "USER">
+                <h3><@spring.message 'student.status.first'/><br><@spring.message 'student.status.second'/></h3>
+                <h6><@spring.message 'student.status.third'/><br>
+                    <form action="/confirm" method="post">
+                        <input hidden="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <input class="new-confirm-code" type="submit" value=<@spring.message 'student.status.fourth'/>/>
+                    </form>
+                </h6>
             <#elseif user.role == "STUDENT">
                 <form action="/confirm/confirmTeacher" method="post">
                     <input type="submit"
                            style="color: black"
                            class="teacher-status"
-                           value=<@spring.message 'teacher.status.get'/>/>
+                           value="<@spring.message 'teacher.status.get'/>"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 </form>
             <#elseif user.role == "TEACHER">
-            <a style="color: black;" href="/room">Создать комнату</a>
+                <a style="color: black;" href="/room">Создать комнату</a>
+            </#if>
+        <#else>
+            <@spring.message 'textme'/>
         </#if>
         <hr>
         <#if user.rooms??>

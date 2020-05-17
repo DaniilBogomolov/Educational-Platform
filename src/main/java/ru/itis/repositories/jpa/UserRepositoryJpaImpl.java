@@ -25,13 +25,13 @@ public class UserRepositoryJpaImpl implements UserRepository {
     public static final String HQL_FIND_USER_BY_CONFIRMATION_CODE = "from User user where user.confirmCode = :confirm";
 
     //language=HQL
-    public static final String HQL_FIND_USER_BY_LOGIN = "from User user where user.login = :login";
+    public static final String HQL_FIND_USER_BY_LOGIN = "select user from User user left join fetch user.rooms where user.login = :login";
 
     //language=HQL
     public static final String HQL_FIND_ALL_USERS = "from User";
 
     //language=HQL
-    public static final String HQL_FIND_USER_BY_ID = "select user from User user join fetch user.rooms where user.id = :id";
+    public static final String HQL_FIND_USER_BY_ID = "select user from User user left join fetch user.rooms where user.id = :id";
 
 
     @Override
@@ -47,10 +47,15 @@ public class UserRepositoryJpaImpl implements UserRepository {
     }
 
     @Override
-    public User findUserByLogin(String login) {
-        return entityManager.createQuery(HQL_FIND_USER_BY_LOGIN, User.class)
-                .setParameter("login", login)
-                .getSingleResult();
+    public Optional<User> findUserByLogin(String login) {
+        try {
+            User user = entityManager.createQuery(HQL_FIND_USER_BY_LOGIN, User.class)
+                    .setParameter("login", login)
+                    .getSingleResult();
+            return Optional.ofNullable(user);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

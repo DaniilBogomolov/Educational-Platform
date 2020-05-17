@@ -28,6 +28,12 @@ public class Message {
     @Column(name = "expiring_time")
     private LocalDateTime expiringTime;
 
+    @Column(name = "read")
+    private boolean isRead;
+
+    @OneToOne
+    @JoinColumn(name = "file_id")
+    private FileInfo attachment;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")

@@ -15,6 +15,9 @@ public class MessageRepositoryJpaImpl implements MessageRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+    //language=HQL
+    private static final String HQL_FIND_ALL_MESSAGES = "select message from Message message left join fetch message.attachment where message.sentFrom.id = :id";
+
     @Override
     public void save(Message entity) {
         entityManager.persist(entity);
@@ -42,7 +45,7 @@ public class MessageRepositoryJpaImpl implements MessageRepository {
 
     @Override
     public List<Message> getAllMessagesForRoom(Long roomId) {
-        return entityManager.createQuery("from Message message where message.sentFrom.id = :id", Message.class)
+        return entityManager.createQuery(HQL_FIND_ALL_MESSAGES, Message.class)
                 .setParameter("id", roomId)
                 .getResultList();
     }
