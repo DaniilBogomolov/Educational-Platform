@@ -19,6 +19,22 @@ button {
 
 .content {
     flex-direction: column;
-
     max-width: 50%;
+    flex-grow: 1;
+}
+
+.room {
+    display: flex;
+    flex-direction: row;
+}
+
+.homework {
+    max-width: 50%;
+    flex-grow: 1;
+}
+
+#homework-text {
+    min-width: 15em;
+    max-height: 10em;
+    overflow: scroll;
 }

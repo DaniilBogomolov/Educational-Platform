@@ -12,7 +12,7 @@
 <#if error??>
     <h1>${error}</h1>
 <#else>
-    <h1><@spring.message 'confirmed'></h1>
+    <h1><@spring.message 'confirmed'/></h1>
     <a href="/profile"><@spring.message "link.profile"/></a>
 </#if>
 </body>

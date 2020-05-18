@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
@@ -37,8 +38,7 @@ import java.util.concurrent.Executors;
 @Component
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories
-@EnableJdbcHttpSession
+@EnableJpaRepositories(basePackages = "ru.itis.repositories")
 public class ApplicationConfig {
 
     @Autowired
@@ -154,7 +154,6 @@ public class ApplicationConfig {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.setProperty("hibernate.show_sql", "true");
         return properties;
     }
 }

@@ -102,7 +102,6 @@ public class FileServiceImpl implements FileService {
     @Transactional
     public List<UploadedFileInfoDto> findFilesByUserID(Long id) {
         return fileRepository.getFilesByUploader(id).stream()
-                .peek(fileInfo -> fileInfo.setUrl(fileDomainURI.concat(fileInfo.getStorageFileName())))
                 .map(UploadedFileInfoDto::from)
                 .collect(Collectors.toList());
     }
@@ -111,8 +110,17 @@ public class FileServiceImpl implements FileService {
     @Transactional
     public List<UploadedFileInfoDto> findFilesByUserLogin(String login) {
         return fileRepository.getFilesByUploaderLogin(login).stream()
-                .peek(fileInfo -> fileInfo.setUrl(fileDomainURI.concat(fileInfo.getStorageFileName())))
                 .map(UploadedFileInfoDto::from)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public FileInfo getFileByFullURL(String fullURL) {
+        if (fullURL.equals("none")) {
+            return null;
+        } else {
+            return fileRepository.getFileByGeneratedFileName(fullURL.substring(7)).orElseThrow();
+        }
     }
 }

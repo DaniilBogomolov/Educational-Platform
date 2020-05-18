@@ -22,6 +22,7 @@ public class UserProfileDto {
     private Role role;
     private List<RoomNamesDto> rooms;
     private boolean myProfile;
+    private String login;
 
     public static UserProfileDto from(User user) {
         UserProfileDto profileDto =  from(user, user);

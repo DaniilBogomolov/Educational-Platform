@@ -22,7 +22,7 @@
 <body>
 <div class="navbar-container">
     <#if user??>
-        <a class="files" href="/files">Мои файлы</a>
+        <a class="files" href="/files"><@spring.message 'files'/></a>
         <div class="profile-links">
             <div class="profile-image-small">
                 <a href="/profile"><img src="${user.profilePhotoLink}" class="profile-image-in-a"></a>

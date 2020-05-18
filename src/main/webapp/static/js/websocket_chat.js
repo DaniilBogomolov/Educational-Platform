@@ -6,7 +6,7 @@ const generatedName = $("meta[name='_room_generated_name']").attr("content");
 const headers = {};
 headers[csrfHeader] = csrfToken;
 const defaultOption = document.getElementById("default-option");
-const select = $("#files");
+const select = $("select[id=files]");
 
 stomp.connect(headers, function () {
     stomp.subscribe("/topic/room/".concat(generatedName), function (data) {
@@ -58,6 +58,11 @@ function sendMessage(text, login, senderFullName) {
     };
     $('#text').val("");
     stomp.send("/app/room/".concat(generatedName), headers, JSON.stringify(body));
+    select.empty();
+    select.append(defaultOption);
+}
+
+function clearSelect() {
     select.empty();
     select.append(defaultOption);
 }

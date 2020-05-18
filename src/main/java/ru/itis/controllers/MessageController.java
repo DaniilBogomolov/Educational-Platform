@@ -30,7 +30,6 @@ public class MessageController {
     @SendTo("/topic/room/{roomName}")
     public MessageDto sendMessage(@DestinationVariable String roomName,
                                   MessageDto messageDto) {
-        System.err.println(messageDto);
         return chatService.saveNewMessage(messageDto, now());
     }
 

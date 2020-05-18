@@ -28,10 +28,8 @@
                         alert(status);
                     }
                 })
-            })
-        }
-
-
+            });
+        };
     </script>
 </head>
 <body>
@@ -91,6 +89,25 @@
                     </#items>
                 </ul>
             </#list>
+        </#if>
+        <#if user.role == "STUDENT">
+            <hr>
+            Мои домашние задания
+            <#if homeworks??>
+                <#list homeworks>
+                    <ul>
+                        <#items as hw>
+                            <li>${hw.text};
+                                <#if hw.attachment?has_content>
+                                    <a style="color: blue; text-decoration: none"
+                                       href="${hw.attachment.url}">${hw.attachment.originalFileName}</a>
+                                </#if>
+                                <button style="display: block"><a style="color: black" href="/homework/${hw.sendURL}">Выполнить</a></button>
+                            </li>
+                        </#items>
+                    </ul>
+                </#list>
+            </#if>
         </#if>
     </div>
 </div>

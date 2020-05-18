@@ -13,6 +13,7 @@ import ru.itis.dto.UserProfileDto;
 import ru.itis.models.User;
 import ru.itis.security.http.details.UserDetailsImpl;
 import ru.itis.services.FileService;
+import ru.itis.services.HomeworkService;
 import ru.itis.services.RoomService;
 import ru.itis.services.UserService;
 
@@ -29,6 +30,9 @@ public class ProfileController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private HomeworkService homeworkService;
+
     @Value("${domain}")
     private String domain;
 
@@ -41,6 +45,7 @@ public class ProfileController {
         userDetails.setUser(userService.getUserById(user.getId()));
         UserProfileDto dto = UserProfileDto.from(userDetails.getUser());
         model.addAttribute("user", dto);
+        model.addAttribute("homeworks", homeworkService.findAllNotDoneByUserLogin(user.getLogin()));
         return "profile_page";
     }
 

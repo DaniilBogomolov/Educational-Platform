@@ -1,9 +1,6 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -37,4 +34,9 @@ public class FileInfo {
     @OneToOne
     @JoinColumn(name = "uploader_id")
     private User owner;
+
+    @PostLoad
+    public void generateUrl() {
+        this.url = "/files/".concat(storageFileName);
+    }
 }

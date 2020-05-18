@@ -23,4 +23,6 @@ public interface FileService {
     List<UploadedFileInfoDto> findFilesByUserID(Long id);
 
     List<UploadedFileInfoDto> findFilesByUserLogin(String login);
+
+    FileInfo getFileByFullURL(String fullURL);
 }

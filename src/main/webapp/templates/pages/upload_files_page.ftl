@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ru">
+<#import "spring.ftl" as spring/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,6 +11,15 @@
 </head>
 
 <body>
+<div class="navbar-container">
+    <a class="files" href="/home"><@spring.message 'main.page'/></a>
+    <div class="profile-links">
+        <div class="profile-image-small">
+            <a href="/profile"><img src="${profilePhotoLink}" class="profile-image-in-a"></a>
+        </div>
+        <a class="profile">${firstName}</a>
+    </div>
+</div>
 <form class="form"
       action="/files?${_csrf.parameterName}=${_csrf.token}"
       method="post"
@@ -22,7 +32,7 @@
     <#list files>
         <ul>
             <#items as file>
-                <li><a href="${file.url}">${file.originalFileName}</a></li>
+                <li><a style="color: black; text-decoration: none" href="${file.url}">${file.originalFileName}</a></li>
             </#items>
         </ul>
     </#list>

@@ -48,6 +48,8 @@ public class FilesController {
                            ModelMap modelMap) {
         User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         modelMap.addAttribute("files", fileService.findFilesByUserID(user.getId()));
+        modelMap.addAttribute("profilePhotoLink", user.getProfilePhotoLink());
+        modelMap.addAttribute("firstName", user.getFirstName());
         return "upload_files_page";
     }
 

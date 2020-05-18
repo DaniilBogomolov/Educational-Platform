@@ -39,7 +39,7 @@ public class MessageDto {
         if (info != null) {
             messageDto.setAttachment(UploadedFileInfoDto.builder()
                     .originalFileName(info.getOriginalFileName())
-                    .url("/files/".concat(info.getStorageFileName()))
+                    .url(info.getUrl())
                     .build());
         }
         return messageDto;
