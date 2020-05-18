@@ -3,6 +3,7 @@ package ru.itis.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ru.itis.dto.DoneHomeworkDto;
 import ru.itis.dto.HomeworkAssignmentDto;
 import ru.itis.dto.HomeworkDescriptionDto;
 import ru.itis.dto.HomeworkPageInfo;
@@ -17,7 +18,9 @@ import ru.itis.services.HomeworkService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +69,30 @@ public class HomeworkServiceImpl implements HomeworkService {
                 .senderLogin(userLogin)
                 .files(fileService.findFilesByUserLogin(userLogin))
                 .build();
+    }
+
+    @Override
+    public List<DoneHomeworkDto> getDoneHomeworksForRoom(String roomId) {
+        Map<User, List<Homework>> map = new HashMap<>();
+        List<Homework> homeworks = homeworkRepository.findAllByForGroup_IdentifierIn(List.of(roomId))
+                .stream()
+                .filter(Homework::isDone)
+                .distinct()
+                .collect(Collectors.toList());
+        for (Homework homework : homeworks) {
+            if (map.containsKey(homework.getSender())) {
+                map.get(homework.getSender()).add(homework);
+            } else {
+                List<Homework> usersHomeworks = new ArrayList<>();
+                usersHomeworks.add(homework);
+                map.put(homework.getSender(), usersHomeworks);
+            }
+        }
+        List<DoneHomeworkDto> dto = new ArrayList<>();
+        for (User user : map.keySet()) {
+            dto.add(DoneHomeworkDto.from(map.get(user), user));
+        }
+        return dto;
     }
 
     @Override

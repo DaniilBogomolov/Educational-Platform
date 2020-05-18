@@ -1,5 +1,6 @@
 package ru.itis.services;
 
+import ru.itis.dto.DoneHomeworkDto;
 import ru.itis.dto.HomeworkAssignmentDto;
 import ru.itis.dto.HomeworkDescriptionDto;
 import ru.itis.dto.HomeworkPageInfo;
@@ -20,5 +21,5 @@ public interface HomeworkService {
 
     HomeworkPageInfo getInfo(String roomId, String userLogin);
 
-
+    List<DoneHomeworkDto> getDoneHomeworksForRoom(String roomId);
 }

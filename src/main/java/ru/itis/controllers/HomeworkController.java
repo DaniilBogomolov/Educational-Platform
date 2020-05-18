@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dto.DoneHomeworkDto;
 import ru.itis.dto.HomeworkAssignmentDto;
 import ru.itis.dto.HomeworkDescriptionDto;
 import ru.itis.models.Homework;
@@ -43,10 +44,9 @@ public class HomeworkController {
     }
 
     @GetMapping("/room/{roomName}")
-    public String getHomeworksForRoom(@PathVariable String roomName) {
-
+    public ResponseEntity<List<DoneHomeworkDto>> getHomeworksForRoom(@PathVariable String roomName) {
+        return ResponseEntity.ok(homeworkService.getDoneHomeworksForRoom(roomName));
     }
-
 
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

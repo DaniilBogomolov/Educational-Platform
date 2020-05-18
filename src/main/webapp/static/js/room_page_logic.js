@@ -50,3 +50,29 @@ function sendHomework(roomId, login) {
     text.val('');
     clearSelect();
 }
+
+function loadHomeworks() {
+    const generatedName = $("meta[name='_room_generated_name']").attr("content");
+    $.ajax({
+        method: "get",
+        url: "/homework/room/".concat(generatedName),
+        success: function (homeworks) {
+            for (var index in homeworks) {
+                insertHomework(homeworks[index]);
+            }
+        }
+    });
+}
+
+function insertHomework(homework) {
+    const spaces = Array(homework.userLogin.length + 2).fill('\xa0').join('');
+    $('#homeworks').append('<li>' + homework.userLogin + ': ' + '<br>');
+    for (var index in homework.homeworks) {
+        const hw = homework.homeworks[index];
+        $('#homeworks').append(spaces + hw.text);
+        if (hw.attachment != null) {
+            $('#homeworks').append(spaces + '<a href="' + hw.attachment.url + '">' + hw.attachment.originalFileName + '</a>');
+        }
+        hw.append('</li>');
+    }
+}

@@ -10,7 +10,6 @@
     <meta name="_csrf_token" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <meta name="_room_generated_name" content="${roomUserInfo.generatedRoomName}">
-
     <link rel="stylesheet" href="/resources/css/room_page_styles.css">
     <script src="/resources/js/jQuery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
@@ -58,11 +57,18 @@
                 <option id="default-option" selected value="none"><@spring.message 'attach.file'/></option>
             </select>
             <button style="align-self: center" onclick="sendHomework('${roomUserInfo.generatedRoomName}', '${roomUserInfo.login}')">Отправить</button>
+            <hr>
+            <h6 style="text-align: center">Домашние задания для проверки: </h6>
+            <ul id="homeworks"></ul>
+
         </div>
     </#if>
 
 </div>
 <script src="/resources/js/websocket_chat.js"></script>
 <script src="/resources/js/room_page_logic.js"></script>
+<#if roomUserInfo.owner>
+    <script>loadHomeworks()</script>
+</#if>
 </body>
 </html>

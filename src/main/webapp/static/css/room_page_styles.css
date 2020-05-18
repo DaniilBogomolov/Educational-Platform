@@ -9,6 +9,13 @@
     list-style-type: none;
 }
 
+#homeworks {
+    border: 0.5px gray solid;
+    min-height: 20em;
+    max-height: 20em;
+    overflow: scroll;
+}
+
 a {
     color: blue;
 }
